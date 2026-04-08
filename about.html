@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — YSK Pharma | Parbhani</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.about-hero {
+  padding:80px 5% 60px;
+  background:var(--dark2);
+  border-bottom:1px solid var(--border);
+  position:relative; overflow:hidden;
+}
+.about-hero::before {
+  content:''; position:absolute; top:-100px; left:-100px;
+  width:600px; height:600px; border-radius:50%;
+  background:radial-gradient(circle,rgba(232,24,12,.1) 0%,transparent 65%);
+  pointer-events:none;
+}
+.about-hero-inner { display:grid; grid-template-columns:1fr 1.3fr; gap:60px; align-items:center; max-width:1200px; margin:0 auto; position:relative; z-index:1; }
+
+/* profile card */
+.profile-card {
+  background:rgba(232,24,12,.06); border:1px solid var(--border-red);
+  border-radius:20px; padding:40px; text-align:center;
+}
+.profile-icon {
+  width:96px; height:96px; background:var(--red); border-radius:20px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--fd); font-size:30px; font-weight:800; color:#fff;
+  margin:0 auto 20px;
+}
+.profile-name { font-family:var(--fd); font-size:28px; font-weight:800; color:var(--red); margin-bottom:4px; }
+.profile-loc { font-size:13px; color:var(--muted); }
+.profile-div { border:none; border-top:1px solid var(--border-red); margin:22px 0; }
+.profile-items { display:flex; flex-direction:column; gap:10px; text-align:left; }
+.pi { display:flex; align-items:center; gap:10px; font-size:13px; color:rgba(255,255,255,.75); }
+.pi-ico { width:28px; height:28px; background:rgba(232,24,12,.12); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
+.profile-btns { display:flex; gap:10px; margin-top:22px; }
+.profile-btns a { flex:1; justify-content:center; font-size:12px; padding:10px 16px; }
+
+/* about content */
+.about-content .sec-h { margin-bottom:20px; }
+.about-content p { color:var(--muted); font-size:15px; line-height:1.85; margin-bottom:18px; font-weight:300; }
+.about-content p strong { color:rgba(255,255,255,.85); font-weight:600; }
+.cert-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:28px; }
+.cert-badge {
+  background:var(--panel); border:1px solid var(--border); border-radius:8px;
+  padding:9px 14px; font-size:12px; font-family:var(--fd); font-weight:600; color:var(--muted);
+  display:flex; align-items:center; gap:7px;
+}
+.cert-badge span { color:var(--red); }
+
+/* values */
+.vals-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; }
+.val-card {
+  background:var(--panel); border:1px solid var(--border); border-radius:16px;
+  padding:28px 24px; transition:all .3s; position:relative;
+}
+.val-card:hover { background:var(--panel-h); border-color:var(--border-red); transform:translateY(-4px); }
+.val-num {
+  font-family:var(--fd); font-size:48px; font-weight:800;
+  color:rgba(232,24,12,.2); position:absolute; top:16px; right:18px; line-height:1;
+}
+.val-icon { font-size:28px; margin-bottom:14px; }
+.val-title { font-family:var(--fd); font-size:16px; font-weight:700; margin-bottom:9px; }
+.val-desc { font-size:13px; color:var(--muted); line-height:1.7; font-weight:300; }
+
+/* team strip */
+.team-strip {
+  background:linear-gradient(135deg,rgba(232,24,12,.12),rgba(232,24,12,.03));
+  border:1px solid var(--border-red); border-radius:20px; padding:40px;
+  display:flex; align-items:center; justify-content:space-between; gap:28px; flex-wrap:wrap;
+}
+.team-strip-text h3 { font-family:var(--fd); font-size:26px; font-weight:800; margin-bottom:8px; }
+.team-strip-text p { font-size:14px; color:var(--muted); font-weight:300; }
+.team-strip-btns { display:flex; gap:12px; flex-wrap:wrap; }
+
+@media(max-width:900px){
+  .about-hero-inner { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <div class="nav-mark">YSK</div>
+    <div class="nav-brand">YSK <b>Pharma</b></div>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="about.html" class="active">About</a>
+    <a href="stock.html">Stock List</a>
+    <a href="contact.html">Contact</a>
+    <a href="order.html" class="nav-cta">📋 Place Order</a>
+  </div>
+  <button class="nav-mb" onclick="document.getElementById('nav').classList.toggle('mobile-open')">☰</button>
+</nav>
+
+<div class="pg">
+
+  <!-- ABOUT HERO -->
+  <section class="about-hero">
+    <div class="about-hero-inner">
+      <div class="profile-card">
+        <div class="profile-icon">YSK</div>
+        <div class="profile-name">YSK PHARMA</div>
+        <div class="profile-loc">Parbhani, Maharashtra</div>
+        <div class="profile-div"></div>
+        <div class="profile-items">
+          <div class="pi"><div class="pi-ico">⏰</div>Open 24 Hours, 7 Days a Week</div>
+          <div class="pi"><div class="pi-ico">📞</div>099756 49010</div>
+          <div class="pi"><div class="pi-ico">📍</div>Ghalib Nagar, Dargah Rd</div>
+          <div class="pi"><div class="pi-ico">🏥</div>opp. EDEN PARK, Prabhavati Nagar</div>
+          <div class="pi"><div class="pi-ico">📮</div>Parbhani, Maharashtra 431401</div>
+        </div>
+        <div class="profile-btns">
+          <a href="tel:09975649010" class="btn-r">📞 Call</a>
+          <a href="https://wa.me/919975649010" target="_blank" class="btn-wa">💬 WhatsApp</a>
+        </div>
+      </div>
+
+      <div class="about-content">
+        <div class="sec-tag">About Us</div>
+        <h2 class="sec-h">We Deliver <span style="color:var(--red)">Quality</span><br>Healthcare</h2>
+        <p><strong>YSK Pharma</strong> provides you the best range of milk protein concentrates, soybean protein concentrate, whey protein concentrate, prophylactic treatment services, pharmaceutical medicine &amp; therapeutic service with effective &amp; timely delivery.</p>
+        <p>Located in the heart of <strong>Parbhani, Maharashtra</strong>, we serve hospitals, clinics, pharmacies and individual patients with dedicated commitment to quality and accessibility — 24 hours a day, 7 days a week, including Sundays and holidays.</p>
+        <p>Our team of pharmaceutical professionals ensures every product is sourced from <strong>licensed manufacturers</strong> and meets the highest quality standards before reaching our customers.</p>
+        <div class="cert-row">
+          <div class="cert-badge"><span>✓</span> Licensed Agency</div>
+          <div class="cert-badge"><span>✓</span> Certified Products</div>
+          <div class="cert-badge"><span>✓</span> 24/7 Supply</div>
+          <div class="cert-badge"><span>✓</span> Fast Delivery</div>
+          <div class="cert-badge"><span>✓</span> Expert Staff</div>
+          <div class="cert-badge"><span>✓</span> Competitive Pricing</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT RANGE -->
+  <section class="section sec-darker">
+    <div class="sec-header center">
+      <div class="sec-tag">What We Stock</div>
+      <h2 class="sec-h">Complete Product Range</h2>
+      <p class="sec-sub">Serving hospitals, clinics, pharmacies and patients with a comprehensive range of healthcare products.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card"><div class="svc-icon">🥛</div><div class="svc-name">Milk Protein Concentrates</div><p class="svc-desc">High-quality protein for nutritional and medical use with certified purity levels.</p></div>
+      <div class="svc-card"><div class="svc-icon">🌱</div><div class="svc-name">Soybean Protein Concentrate</div><p class="svc-desc">Plant-based protein concentrates for diverse applications and dietary requirements.</p></div>
+      <div class="svc-card"><div class="svc-icon">💪</div><div class="svc-name">Whey Protein Concentrate</div><p class="svc-desc">Premium whey protein with pharmaceutical-grade purity and lab certification.</p></div>
+      <div class="svc-card"><div class="svc-icon">💊</div><div class="svc-name">Pharmaceutical Medicine</div><p class="svc-desc">Genuine medicines — antibiotics, analgesics, vitamins, cardiac, diabetic &amp; more.</p></div>
+      <div class="svc-card"><div class="svc-icon">🩺</div><div class="svc-name">Prophylactic Treatment</div><p class="svc-desc">Preventive healthcare products and services to protect patient health proactively.</p></div>
+      <div class="svc-card"><div class="svc-icon">❤️‍🩹</div><div class="svc-name">Therapeutic Services</div><p class="svc-desc">Professional therapeutic solutions and expert guidance for patient recovery.</p></div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="section sec-dark">
+    <div class="sec-header center">
+      <div class="sec-tag">Our Values</div>
+      <h2 class="sec-h">What We Stand For</h2>
+    </div>
+    <div class="vals-grid">
+      <div class="val-card">
+        <div class="val-num">01</div>
+        <div class="val-icon">🎯</div>
+        <div class="val-title">Quality First</div>
+        <p class="val-desc">Every product we stock is verified, licensed and from certified manufacturers only. Zero compromise on quality.</p>
+      </div>
+      <div class="val-card">
+        <div class="val-num">02</div>
+        <div class="val-icon">🤝</div>
+        <div class="val-title">Patient-Centered</div>
+        <p class="val-desc">We serve hospitals, clinics and patients with equal dedication — your health is our priority.</p>
+      </div>
+      <div class="val-card">
+        <div class="val-num">03</div>
+        <div class="val-icon">⚡</div>
+        <div class="val-title">Speed & Reliability</div>
+        <p class="val-desc">Fast dispatch, reliable delivery and always-on availability — especially for emergency medical needs.</p>
+      </div>
+      <div class="val-card">
+        <div class="val-num">04</div>
+        <div class="val-icon">💰</div>
+        <div class="val-title">Transparent Pricing</div>
+        <p class="val-desc">Clear margin display, fair wholesale pricing and no hidden costs. What you see is what you pay.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM STRIP -->
+  <section class="section sec-darker">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div class="team-strip">
+        <div class="team-strip-text">
+          <h3>Ready to Order?</h3>
+          <p>Place your order online, call us or WhatsApp — we'll handle the rest.</p>
+        </div>
+        <div class="team-strip-btns">
+          <a href="order.html" class="btn-r">📋 Place Order</a>
+          <a href="stock.html" class="btn-g">💊 View Stock</a>
+          <a href="contact.html" class="btn-g">📞 Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <div class="ft-brand-name"><div class="nav-mark">YSK</div><span>YSK Pharma</span></div>
+        <p>Your trusted medical agency in Parbhani — genuine pharmaceuticals, protein concentrates &amp; therapeutic services. Open 24/7.</p>
+      </div>
+      <div class="ft-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="stock.html">Stock List</a></li>
+          <li><a href="order.html">Place Order</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Contact</h4>
+        <ul>
+          <li>📍 Ghalib Nagar, Parbhani, MH 431401</li>
+          <li>📞 <a href="tel:09975649010" style="color:var(--red);text-decoration:none;">099756 49010</a></li>
+          <li>💬 <a href="https://wa.me/919975649010" target="_blank" style="color:var(--red);text-decoration:none;">WhatsApp Us</a></li>
+          <li>⏰ Open 24 Hours, 7 Days</li>
+        </ul>
+      </div>
+    </div>
+    <div style="text-align: center; color: white; font-weight: bold;">
+    <p>
+        &copy; 2026 
+        <a href="https://kssoftware.co.in" target="_blank" style="color: white; text-decoration: none;">
+            <b>Design & Developed By KS Software</b>
+        </a>. 
+        <br>YSK Pharma - All rights reserved. | 
+        <a href="#" style="color: white; text-decoration: none;">
+            Privacy Policy
+        </a>
+    </p>
+</div>
+  </footer>
+
+</div>
+
+<a class="wa-float" href="https://wa.me/919975649010" target="_blank"><div class="wa-ring"></div>💬</a>
+</body>
+</html>

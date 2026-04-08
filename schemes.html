@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Financial Year Schemes | YSK Pharma</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">YSK <span>PHARMA</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="schemes.html" class="active">Medicine Schemes</a></li>
+            <li><a href="order.html">Place Order</a></li>
+        </ul>
+    </nav>
+
+    <section class="scheme-container">
+        <div class="header-flex">
+            <h2>New Financial Year Schemes</h2>
+            <div class="warning-tag">NO EXPIRE NO RETURN </div>
+        </div>
+
+        <input type="text" id="schemeSearch" placeholder="Search by medicine name or company..." onkeyup="searchSchemes()">
+
+        <div class="table-responsive">
+            <table id="schemeTable">
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Medicine Name</th>
+                        <th>Packing</th>
+                        <th>Scheme</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Abbott</td><td>Anafortan New Tab</td><td>15</td><td>10 + 1</td></tr>
+                    <tr><td>Abbott</td><td>Avomine Tab</td><td>10</td><td>10 + 2</td></tr>
+                    <tr><td>Abbott</td><td>Brufen 400 Tab</td><td>15</td><td>12 + 1</td></tr>
+                    <tr><td>Abbott</td><td>Cremaffin Plus</td><td>225ml</td><td>12 + 1</td></tr>
+                    <tr><td>Abbott</td><td>Thyronorm (All MCG)</td><td>100/120</td><td>12 + 1</td></tr>
+                    <tr><td>Ajanta</td><td>Met XL 25 / 50</td><td>20</td><td>12 + 1</td></tr>
+                    <tr><td>Ajanta</td><td>Cinod 10mg / 20mg</td><td>20</td><td>9 + 1</td></tr>
+                    <tr><td>Alkem</td><td>Clavam 625</td><td>10</td><td>10 + 2</td></tr>
+                    <tr><td>Alkem</td><td>Pan 40 / Pan D</td><td>15</td><td>12 + 1</td></tr>
+                    <tr><td>Alkem</td><td>A to Z NS Tab</td><td>15</td><td>9 + 1</td></tr>
+                    <tr><td>Aristo</td><td>Monocef 1gm Inj</td><td>1gm</td><td>10 + 11</td></tr>
+                    <tr><td>Aristo</td><td>Pantop DSR</td><td>15</td><td>12 + 1</td></tr>
+                    <tr><td>Mankind</td><td>Amlokind 5 / AT</td><td>10/15</td><td>14 + 1 / 14 + 2</td></tr>
+                    <tr><td>Mankind</td><td>Telmikind 40</td><td>10</td><td>14 + 1</td></tr>
+                    <tr><td>Mankind</td><td>Moxikind CV 625</td><td>10</td><td>6 + 2</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <script>
+        function searchSchemes() {
+            let input = document.getElementById("schemeSearch").value.toUpperCase();
+            let table = document.getElementById("schemeTable");
+            let tr = table.getElementsByTagName("tr");
+            for (let i = 1; i < tr.length; i++) {
+                tr[i].style.display = tr[i].innerText.toUpperCase().indexOf(input) > -1 ? "" : "none";
+            }
+        }
+    </script>
+
+    <footer class="footer">
+<div style="text-align: center; color: white; font-weight: bold;">
+    <p>
+        &copy; 2026 
+        <a href="https://kssoftware.co.in" target="_blank" style="color: white; text-decoration: none;">
+            <b>Design & Developed By KS Software</b>
+        </a>. 
+        <br>YSK Pharma - All rights reserved. | 
+        <a href="#" style="color: white; text-decoration: none;">
+            Privacy Policy
+        </a>
+    </p>
+</div>
+    </footer>
+</body>
+</html>

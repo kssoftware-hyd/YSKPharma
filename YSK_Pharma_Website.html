@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YSK Pharma - Medical Agency | Parbhani</title>
+<link rel="icon" href="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/wAARCABAAEADASIAAhEBAxEB/8QAGwAAAwEBAQEAAAAAAAAAAAAAAAMEBQIBBgb/xAAuEAABBAIBAwMDBAMAAAAAAAABAAIDEQQhMQUSQVFhEzJxBhQiI0LB0fH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A+7IASABJ8JIBQGJkPawtMoB47qxC7Vb7LOMpx3bqNfBSeHHuFzZVh0j4GPe6IyFwaXDoHHmAFAVXWuTbbFWbXBqWxOPtAHt/S2LVtl1K9YdRo14Y5IgCHMeQdSPBB9lzNfL/LK9ruOQqAuoFt2x9IZZrN3kWqzmuH7DXNBc0jyfNQF2PVaM+d9IWatme8P0iX3O14u7FQFlpGRFPWgMPMMce35RNPIJB7fXCmrQxhvFRjXg6MYLXa45A0PIVCgIiIAiIgCgEoACUABRSCAZPGLFWWF3TZGlp+4XFr27J6lgMz5CGFuR1H1B7KukqxWY3RysDgeePoPqCuRlVH49qSGBxZXuTAOiBO7iCeBPdAXOm2J6mK9lg3WIGsd80dh81qqiIAiIgCIiAKiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiA//2Q==" type="image/jpeg">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+<style>
+  :root {
+    --red: #E8180C;
+    --dark: #0D0D0D;
+    --mid: #1A1A1A;
+    --light-bg: #F8F7F4;
+    --white: #FFFFFF;
+    --gray: #6B6B6B;
+    --light-gray: #E8E8E8;
+    --success: #1DB954;
+    --warning: #FF9F1C;
+    --border: #2A2A2A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Barlow', sans-serif; background: var(--dark); color: var(--white); overflow-x: hidden; }
+
+  /* ===================== NAVBAR ===================== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(13,13,13,0.95); backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(232,24,12,0.3);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-logo img { height: 46px; width: auto; filter: brightness(1.05); }
+  .nav-links { display: flex; gap: 6px; }
+  .nav-links a {
+    color: rgba(255,255,255,0.7); text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 13px;
+    font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 8px 16px; border-radius: 4px;
+    transition: all 0.2s ease; border: 1px solid transparent;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--white); background: rgba(232,24,12,0.15); border-color: rgba(232,24,12,0.4);
+  }
+  .nav-cta {
+    background: var(--red) !important; color: var(--white) !important;
+    border-color: var(--red) !important; border-radius: 4px;
+  }
+  .nav-cta:hover { background: #c0130a !important; }
+  .mobile-menu-btn { display: none; background: none; border: none; color: white; font-size: 22px; cursor: pointer; }
+
+  /* ===================== PAGES ===================== */
+  .page { display: none; min-height: 100vh; padding-top: 70px; }
+  .page.active { display: block; }
+
+  /* ===================== HERO ===================== */
+  .hero {
+    background: var(--dark); min-height: calc(100vh - 70px);
+    display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+    padding: 80px 5% 60px; gap: 60px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -200px; right: -100px;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,24,12,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(232,24,12,0.1); border: 1px solid rgba(232,24,12,0.3);
+    padding: 6px 14px; border-radius: 20px; margin-bottom: 24px;
+    font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--red);
+  }
+  .hero-badge span { width: 6px; height: 6px; background: var(--red); border-radius: 50%; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+  .hero h1 {
+    font-family: 'Bebas Neue', cursive; font-size: clamp(52px, 6vw, 88px);
+    line-height: 0.95; color: var(--white); margin-bottom: 24px; letter-spacing: 1px;
+  }
+  .hero h1 em { color: var(--red); font-style: normal; }
+  .hero p { font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.6); max-width: 460px; margin-bottom: 36px; }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--red); color: white; padding: 14px 30px;
+    border: none; border-radius: 5px; font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: #c0130a; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: white; padding: 14px 30px;
+    border: 1px solid rgba(255,255,255,0.3); border-radius: 5px;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; transition: all 0.2s;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-outline:hover { border-color: var(--red); color: var(--red); }
+  .hero-stats { display: flex; gap: 36px; margin-top: 44px; padding-top: 44px; border-top: 1px solid rgba(255,255,255,0.1); }
+  .stat-item h3 { font-family: 'Bebas Neue', cursive; font-size: 42px; color: var(--red); line-height: 1; }
+  .stat-item p { font-size: 12px; color: rgba(255,255,255,0.5); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+  .hero-visual {
+    display: flex; flex-direction: column; gap: 14px; animation: fadeInRight 0.8s ease;
+  }
+  @keyframes fadeInRight { from{opacity:0;transform:translateX(30px)} to{opacity:1;transform:translateX(0)} }
+  .info-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 20px 24px; display: flex; align-items: center; gap: 16px;
+    transition: all 0.2s;
+  }
+  .info-card:hover { background: rgba(255,255,255,0.07); border-color: rgba(232,24,12,0.3); }
+  .info-card-icon {
+    width: 44px; height: 44px; background: rgba(232,24,12,0.15); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
+  }
+  .info-card-text h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .info-card-text p { font-size: 13px; color: rgba(255,255,255,0.5); }
+  .whatsapp-float {
+    position: fixed; bottom: 28px; right: 28px; z-index: 999;
+    width: 58px; height: 58px; background: #25D366; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    text-decoration: none; transition: all 0.2s; font-size: 28px;
+  }
+  .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.5); }
+
+  /* ===================== SECTIONS ===================== */
+  .section { padding: 80px 5%; }
+  .section-dark { background: var(--mid); }
+  .section-light { background: var(--light-bg); color: var(--dark); }
+  .section-header { text-align: center; margin-bottom: 56px; }
+  .section-header .eyebrow {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase; color: var(--red); margin-bottom: 12px; display: block;
+  }
+  .section-header h2 { font-family: 'Bebas Neue', cursive; font-size: clamp(38px, 4vw, 58px); line-height: 1.05; }
+  .section-light .section-header h2 { color: var(--dark); }
+  .section-header p { color: rgba(255,255,255,0.55); max-width: 560px; margin: 14px auto 0; font-size: 15px; line-height: 1.7; }
+  .section-light .section-header p { color: rgba(0,0,0,0.55); }
+
+  /* ===================== SERVICES GRID ===================== */
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .service-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px; padding: 28px; transition: all 0.3s;
+  }
+  .service-card:hover { background: rgba(232,24,12,0.06); border-color: rgba(232,24,12,0.3); transform: translateY(-3px); }
+  .service-icon { font-size: 32px; margin-bottom: 16px; }
+  .service-card h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .service-card p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+  /* ===================== ABOUT PAGE ===================== */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .about-img-block {
+    background: rgba(232,24,12,0.08); border: 1px solid rgba(232,24,12,0.2);
+    border-radius: 20px; padding: 48px; text-align: center; min-height: 380px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+  }
+  .about-img-block img { width: 160px; height: auto; }
+  .about-img-block h3 { font-family: 'Bebas Neue', cursive; font-size: 30px; color: var(--red); }
+  .about-img-block p { font-size: 13px; color: rgba(255,255,255,0.5); text-align: center; line-height: 1.6; }
+  .about-content h2 { font-family: 'Bebas Neue', cursive; font-size: 48px; line-height: 1.05; margin-bottom: 20px; }
+  .about-content h2 em { color: var(--red); font-style: normal; }
+  .about-content p { color: rgba(255,255,255,0.65); font-size: 15px; line-height: 1.75; margin-bottom: 20px; }
+  .about-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+  .about-list li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: rgba(255,255,255,0.7); }
+  .about-list li::before { content: '✓'; color: var(--red); font-weight: 700; font-size: 16px; flex-shrink: 0; }
+
+  /* ===================== STOCK PAGE ===================== */
+  .stock-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: 28px; }
+  .stock-search-bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .search-input {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 6px; padding: 10px 16px; color: white; font-size: 14px; font-family: 'Barlow', sans-serif;
+    outline: none; width: 260px;
+  }
+  .search-input::placeholder { color: rgba(255,255,255,0.35); }
+  .search-input:focus { border-color: var(--red); }
+  select.filter-select {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 6px; padding: 10px 14px; color: white; font-size: 13px; font-family: 'Barlow', sans-serif;
+    outline: none; cursor: pointer;
+  }
+  select.filter-select option { background: #1a1a1a; }
+  .stock-table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); }
+  .stock-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .stock-table thead { background: rgba(232,24,12,0.12); }
+  .stock-table thead th {
+    padding: 14px 16px; text-align: left; font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    color: rgba(255,255,255,0.7); border-bottom: 1px solid rgba(255,255,255,0.08); white-space: nowrap;
+  }
+  .stock-table tbody tr { border-bottom: 1px solid rgba(255,255,255,0.06); transition: background 0.15s; }
+  .stock-table tbody tr:hover { background: rgba(255,255,255,0.04); }
+  .stock-table td { padding: 13px 16px; color: rgba(255,255,255,0.85); vertical-align: middle; }
+  .stock-table td .med-name { font-weight: 600; font-size: 14px; }
+  .stock-table td .med-generic { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+  .badge {
+    padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+    display: inline-block; text-transform: uppercase;
+  }
+  .badge-avail { background: rgba(29,185,84,0.15); color: #1DB954; border: 1px solid rgba(29,185,84,0.3); }
+  .badge-out { background: rgba(232,24,12,0.15); color: #ff5a5a; border: 1px solid rgba(232,24,12,0.3); }
+  .badge-low { background: rgba(255,159,28,0.15); color: #FF9F1C; border: 1px solid rgba(255,159,28,0.3); }
+  .margin-pill {
+    background: rgba(255,255,255,0.08); border-radius: 6px; padding: 4px 10px;
+    font-size: 13px; font-weight: 600; font-family: 'Barlow Condensed', sans-serif;
+    color: #90EE90;
+  }
+  .table-actions { display: flex; gap: 8px; }
+  .tbl-btn {
+    padding: 6px 12px; border-radius: 5px; border: 1px solid rgba(255,255,255,0.2);
+    background: transparent; color: white; font-size: 12px; cursor: pointer; transition: all 0.15s;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 600; letter-spacing: 0.5px;
+  }
+  .tbl-btn:hover { background: rgba(232,24,12,0.2); border-color: var(--red); }
+  .tbl-btn-add { background: rgba(29,185,84,0.15); border-color: rgba(29,185,84,0.4); color: #1DB954; }
+  .tbl-btn-add:hover { background: rgba(29,185,84,0.3); }
+
+  /* ===================== ORDER PAGE ===================== */
+  .order-layout { display: grid; grid-template-columns: 1fr 380px; gap: 28px; align-items: start; }
+  .order-form-panel {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px; padding: 28px;
+  }
+  .order-cart-panel {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px; padding: 24px; position: sticky; top: 90px;
+  }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 7px; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 7px; padding: 11px 14px; color: white; font-size: 14px; font-family: 'Barlow', sans-serif;
+    outline: none; transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--red); }
+  .form-group select option { background: #1a1a1a; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-section-title {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin: 24px 0 16px;
+    padding-bottom: 8px; border-bottom: 1px solid rgba(232,24,12,0.2);
+  }
+  .medicine-select-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
+  .medicine-select-row select { flex: 1; }
+  .medicine-select-row input[type="number"] { width: 80px; flex-shrink: 0; }
+  .remove-med { background: rgba(232,24,12,0.2); border: 1px solid rgba(232,24,12,0.4); color: #ff5a5a; padding: 10px 12px; border-radius: 6px; cursor: pointer; flex-shrink: 0; font-size: 16px; line-height: 1; transition: all 0.15s; }
+  .remove-med:hover { background: rgba(232,24,12,0.4); }
+  .add-med-btn {
+    background: rgba(29,185,84,0.1); border: 1px dashed rgba(29,185,84,0.4); color: #1DB954;
+    padding: 10px; border-radius: 7px; cursor: pointer; font-size: 13px; font-weight: 600;
+    font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px; text-transform: uppercase;
+    width: 100%; transition: all 0.2s;
+  }
+  .add-med-btn:hover { background: rgba(29,185,84,0.2); }
+
+  /* Cart */
+  .cart-title { font-family: 'Bebas Neue', cursive; font-size: 26px; margin-bottom: 18px; }
+  .cart-items { list-style: none; display: flex; flex-direction: column; gap: 10px; min-height: 60px; }
+  .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: rgba(255,255,255,0.04); border-radius: 8px; font-size: 13px; }
+  .cart-item-name { font-weight: 600; }
+  .cart-item-qty { color: rgba(255,255,255,0.5); font-size: 12px; }
+  .cart-empty { color: rgba(255,255,255,0.3); text-align: center; padding: 20px; font-size: 13px; }
+  .cart-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 16px 0; }
+  .cart-total-row { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px; color: rgba(255,255,255,0.65); }
+  .cart-total-row.big { font-size: 16px; font-weight: 700; color: white; margin-top: 4px; }
+  .cart-submit { width: 100%; margin-top: 16px; }
+
+  /* ===================== CONTACT PAGE ===================== */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 40px; }
+  .contact-info-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px; padding: 32px; display: flex; flex-direction: column; gap: 20px;
+  }
+  .contact-item { display: flex; gap: 16px; align-items: flex-start; }
+  .contact-icon { width: 44px; height: 44px; background: rgba(232,24,12,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .contact-item h4 { font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 5px; }
+  .contact-item p { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.6; }
+  .contact-item a { color: var(--red); text-decoration: none; }
+  .contact-item a:hover { text-decoration: underline; }
+  .map-embed { width: 100%; height: 280px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; margin-top: 20px; }
+  .map-embed iframe { width: 100%; height: 100%; border: none; }
+  .contact-form-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px; padding: 32px;
+  }
+  .contact-form-card h3 { font-family: 'Bebas Neue', cursive; font-size: 28px; margin-bottom: 24px; }
+  .whatsapp-cta {
+    background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.3);
+    border-radius: 12px; padding: 18px; display: flex; align-items: center; gap: 14px; margin-top: 20px;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .whatsapp-cta:hover { background: rgba(37,211,102,0.18); }
+  .whatsapp-cta .wa-icon { font-size: 32px; }
+  .whatsapp-cta h4 { color: #25D366; font-weight: 700; font-size: 15px; margin-bottom: 3px; }
+  .whatsapp-cta p { font-size: 12px; color: rgba(255,255,255,0.5); }
+
+  /* ===================== FOOTER ===================== */
+  footer {
+    background: #080808; border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 48px 5% 24px; margin-top: 0;
+  }
+  .footer-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 40px; margin-bottom: 36px; }
+  .footer-brand img { height: 50px; margin-bottom: 14px; }
+  .footer-brand p { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.7; max-width: 260px; }
+  .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 16px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .footer-col ul li a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 13px; transition: color 0.15s; }
+  .footer-col ul li a:hover { color: var(--red); }
+  .footer-col ul li { font-size: 13px; color: rgba(255,255,255,0.6); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+  .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.3); }
+  .footer-bottom .red { color: var(--red); }
+
+  /* ===================== TOAST ===================== */
+  .toast-container { position: fixed; bottom: 100px; right: 28px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+  .toast {
+    background: #1a1a1a; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px;
+    padding: 14px 20px; font-size: 14px; min-width: 220px; max-width: 320px;
+    display: flex; align-items: center; gap: 10px; animation: toastIn 0.3s ease;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+  @keyframes toastIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+  .toast.success { border-left: 3px solid #1DB954; }
+  .toast.error { border-left: 3px solid var(--red); }
+
+  /* ===================== MOBILE ===================== */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding: 60px 5%; }
+    .hero-visual { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    .order-layout { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    .mobile-menu-btn { display: block; }
+    .mobile-nav-open .nav-links {
+      display: flex; flex-direction: column; position: fixed; top: 70px; left: 0; right: 0;
+      background: rgba(13,13,13,0.98); padding: 16px; gap: 4px; border-bottom: 1px solid rgba(232,24,12,0.3);
+    }
+    .form-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .hero-stats { flex-wrap: wrap; gap: 20px; }
+    .stock-header { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo" onclick="showPage('home')">
+    <img src="data:image/jpeg;base64,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" alt="YSK Pharma" />
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="#" onclick="showPage('home')" class="active" id="nav-home">HOME</a>
+    <a href="#" onclick="showPage('about')" id="nav-about">ABOUT</a>
+    <a href="#" onclick="showPage('stock')" id="nav-stock">STOCK</a>
+    <a href="#" onclick="showPage('order')" class="nav-cta" id="nav-order">📋 ORDER</a>
+    <a href="#" onclick="showPage('contact')" id="nav-contact">CONTACT</a>
+  </div>
+  <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+</nav>
+
+<!-- ===================== HOME PAGE ===================== -->
+<div id="page-home" class="page active">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge"><span></span>Open 24 Hours · Parbhani, Maharashtra</div>
+      <h1>YOUR TRUSTED<br><em>MEDICAL</em><br>PARTNER</h1>
+      <p>YSK Pharma provides premium range of protein concentrates, pharmaceutical medicines & therapeutic services — with effective & timely delivery.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('order')">📋 Place Order</button>
+        <button class="btn-outline" onclick="showPage('stock')">💊 View Stock</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item"><h3>500+</h3><p>Products</p></div>
+        <div class="stat-item"><h3>24/7</h3><p>Open</p></div>
+        <div class="stat-item"><h3>100%</h3><p>Genuine</p></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="info-card">
+        <div class="info-card-icon">📍</div>
+        <div class="info-card-text">
+          <h4>Our Location</h4>
+          <p>Ghalib Nagar, Dargah Rd, opp. EDEN PARK<br>Parbhani, Maharashtra 431401</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon">📞</div>
+        <div class="info-card-text">
+          <h4>Call / WhatsApp</h4>
+          <p>099756 49010</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon">⏰</div>
+        <div class="info-card-text">
+          <h4>Working Hours</h4>
+          <p>Open 24 Hours, 7 Days a Week</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon">🚚</div>
+        <div class="info-card-text">
+          <h4>Fast Delivery</h4>
+          <p>Quick dispatch to all local areas</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section section-dark">
+    <div class="section-header">
+      <span class="eyebrow">What We Offer</span>
+      <h2>OUR PRODUCT<br>& SERVICES</h2>
+      <p>From pharmaceuticals to therapeutic services — we deliver quality healthcare solutions.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🥛</div>
+        <h3>Milk Protein Concentrates</h3>
+        <p>Premium quality milk protein concentrates for nutritional and therapeutic applications.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌱</div>
+        <h3>Soybean Protein Concentrate</h3>
+        <p>High-grade soybean protein concentrates for diverse medicinal and nutritional uses.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💪</div>
+        <h3>Whey Protein Concentrate</h3>
+        <p>Pharmaceutical-grade whey protein concentrate with certified purity standards.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💊</div>
+        <h3>Pharmaceutical Medicine</h3>
+        <p>Wide range of genuine pharmaceutical medicines sourced from trusted manufacturers.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🩺</div>
+        <h3>Prophylactic Treatment</h3>
+        <p>Preventive treatment services designed to protect and maintain patient health.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">❤️‍🩹</div>
+        <h3>Therapeutic Services</h3>
+        <p>Comprehensive therapeutic services with qualified professional guidance and care.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="section" style="background: var(--dark)">
+    <div class="section-header">
+      <span class="eyebrow">Why Choose Us</span>
+      <h2>TRUSTED BY<br>HEALTHCARE PROVIDERS</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">✅</div>
+        <h3>100% Genuine Products</h3>
+        <p>All medicines sourced directly from licensed manufacturers with proper documentation.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">⚡</div>
+        <h3>Fast Delivery</h3>
+        <p>Quick and reliable delivery to hospitals, clinics, and individuals across Parbhani.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🕐</div>
+        <h3>24/7 Availability</h3>
+        <p>We are open round the clock for emergency medical supply requirements.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💬</div>
+        <h3>Expert Guidance</h3>
+        <p>Our trained staff provides professional guidance on medicine selection and dosage.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/wAARCABAAEADASIAAhEBAxEB/8QAGwAAAwEBAQEAAAAAAAAAAAAAAAMEBQIBBgb/xAAuEAABBAIBAwMDBAMAAAAAAAABAAIDEQQhMQUSQVFhEzJxBhQiI0LB0fH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A+7IASABJ8JIBQGJkPawtMoB47qxC7Vb7LOMpx3bqNfBSeHHuFzZVh0j4GPe6IyFwaXDoHHmAFAVXWuTbbFWbXBqWxOPtAHt/S2LVtl1K9YdRo14Y5IgCHMeQdSPBB9lzNfL/LK9ruOQqAuoFt2x9IZZrN3kWqzmuH7DXNBc0jyfNQF2PVaM+d9IWatme8P0iX3O14u7FQFlpGRFPWgMPMMce35RNPIJB7fXCmrQxhvFRjXg6MYLXa45A0PIVCgIiIAiIgCgEoACUABRSCAZPGLFWWF3TZGlp+4XFr27J6lgMz5CGFuR1H1B7KukqxWY3RysDgeePoPqCuRlVH49qSGBxZXuTAOiBO7iCeBPdAXOm2J6mK9lg3WIGsd80dh81qqiIAiIgCIiAKiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiA//2Q==" alt="YSK Pharma">
+        <p>YSK Pharma — your trusted medical agency in Parbhani, Maharashtra. Providing genuine pharmaceutical products and healthcare services 24/7.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('home')">Home</a></li>
+          <li><a href="#" onclick="showPage('about')">About Us</a></li>
+          <li><a href="#" onclick="showPage('stock')">Stock List</a></li>
+          <li><a href="#" onclick="showPage('order')">Place Order</a></li>
+          <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li>📍 Ghalib Nagar, Parbhani, MH 431401</li>
+          <li>📞 <a href="tel:09975649010">099756 49010</a></li>
+          <li>💬 <a href="https://wa.me/919975649010" target="_blank">WhatsApp Us</a></li>
+          <li>⏰ Open 24 Hours</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 <span class="red">YSK Pharma</span>. All rights reserved.</p>
+      <p>Designed by <span class="red">KS Software Company</span></p>
+    </div>
+  </footer>
+</div>
+
+<!-- ===================== ABOUT PAGE ===================== -->
+<div id="page-about" class="page">
+  <section class="section" style="background: var(--dark)">
+    <div class="about-grid">
+      <div class="about-img-block">
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/wAARCABAAEADASIAAhEBAxEB/8QAGwAAAwEBAQEAAAAAAAAAAAAAAAMEBQIBBgb/xAAuEAABBAIBAwMDBAMAAAAAAAABAAIDEQQhMQUSQVFhEzJxBhQiI0LB0fH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A+7IASABJ8JIBQGJkPawtMoB47qxC7Vb7LOMpx3bqNfBSeHHuFzZVh0j4GPe6IyFwaXDoHHmAFAVXWuTbbFWbXBqWxOPtAHt/S2LVtl1K9YdRo14Y5IgCHMeQdSPBB9lzNfL/LK9ruOQqAuoFt2x9IZZrN3kWqzmuH7DXNBc0jyfNQF2PVaM+d9IWatme8P0iX3O14u7FQFlpGRFPWgMPMMce35RNPIJB7fXCmrQxhvFRjXg6MYLXa45A0PIVCgIiIAiIgCgEoACUABRSCAZPGLFWWF3TZGlp+4XFr27J6lgMz5CGFuR1H1B7KukqxWY3RysDgeePoPqCuRlVH49qSGBxZXuTAOiBO7iCeBPdAXOm2J6mK9lg3WIGsd80dh81qqiIAiIgCIiAKiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiA//2Q==" alt="YSK Pharma Logo">
+        <h3>YSK PHARMA</h3>
+        <p>Established Medical Agency<br>Parbhani, Maharashtra</p>
+      </div>
+      <div class="about-content">
+        <div style="display:inline-block;background:rgba(232,24,12,0.1);border:1px solid rgba(232,24,12,0.3);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:2px;color:var(--red);margin-bottom:16px;text-transform:uppercase">About Us</div>
+        <h2>WE DELIVER <em>QUALITY</em><br>HEALTHCARE</h2>
+        <p>YSK Pharma provides you the best range of milk protein concentrates, soybean protein concentrate, whey protein concentrate, prophylactic treatment services, pharmaceutical medicine & therapeutic service with effective & timely delivery.</p>
+        <p>Located in the heart of Parbhani, Maharashtra, we serve hospitals, clinics, pharmacies and individual patients with dedicated commitment to quality and accessibility.</p>
+        <ul class="about-list">
+          <li>Licensed pharmaceutical agency with certified products</li>
+          <li>24/7 availability for emergency medical supply</li>
+          <li>Fast and reliable local delivery</li>
+          <li>Expert staff with pharmaceutical knowledge</li>
+          <li>Competitive pricing with transparent margins</li>
+          <li>Serving Parbhani and surrounding regions</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="section-header">
+      <span class="eyebrow">Our Products</span>
+      <h2>COMPLETE PRODUCT RANGE</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card"><div class="service-icon">🥛</div><h3>Milk Protein Concentrates</h3><p>High-quality protein for nutritional and medical use.</p></div>
+      <div class="service-card"><div class="service-icon">🌱</div><h3>Soybean Protein Concentrate</h3><p>Plant-based protein concentrates for diverse applications.</p></div>
+      <div class="service-card"><div class="service-icon">💪</div><h3>Whey Protein Concentrate</h3><p>Premium whey protein with pharmaceutical-grade purity.</p></div>
+      <div class="service-card"><div class="service-icon">💊</div><h3>Pharmaceutical Medicine</h3><p>Genuine medicines from licensed manufacturers.</p></div>
+      <div class="service-card"><div class="service-icon">🩺</div><h3>Prophylactic Treatment</h3><p>Preventive healthcare products and services.</p></div>
+      <div class="service-card"><div class="service-icon">❤️‍🩹</div><h3>Therapeutic Services</h3><p>Professional therapeutic solutions and guidance.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand"><p>© 2025 YSK Pharma · Parbhani, Maharashtra</p></div>
+      <div class="footer-col"><h4>Navigation</h4><ul><li><a href="#" onclick="showPage('home')">Home</a></li><li><a href="#" onclick="showPage('stock')">Stock</a></li><li><a href="#" onclick="showPage('order')">Order</a></li><li><a href="#" onclick="showPage('contact')">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul><li>📞 099756 49010</li><li>📍 Parbhani, MH 431401</li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 <span class="red">YSK Pharma</span>. All rights reserved.</p></div>
+  </footer>
+</div>
+
+<!-- ===================== STOCK PAGE ===================== -->
+<div id="page-stock" class="page">
+  <section class="section" style="background: var(--dark); min-height: calc(100vh - 70px);">
+    <div style="max-width: 1200px; margin: 0 auto;">
+      <div style="margin-bottom:32px;">
+        <span style="font-family:'Barlow Condensed';font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red)">Medicine Inventory</span>
+        <h2 style="font-family:'Bebas Neue',cursive;font-size:48px;margin-top:8px;">STOCK LIST</h2>
+      </div>
+
+      <div class="stock-header">
+        <div class="stock-search-bar">
+          <input type="text" class="search-input" id="stockSearch" placeholder="🔍 Search medicine..." oninput="filterStock()">
+          <select class="filter-select" id="statusFilter" onchange="filterStock()">
+            <option value="">All Status</option>
+            <option value="available">Available</option>
+            <option value="low">Low Stock</option>
+            <option value="out">Out of Stock</option>
+          </select>
+          <select class="filter-select" id="categoryFilter" onchange="filterStock()">
+            <option value="">All Categories</option>
+            <option value="Antibiotic">Antibiotic</option>
+            <option value="Analgesic">Analgesic</option>
+            <option value="Antacid">Antacid</option>
+            <option value="Protein">Protein</option>
+            <option value="Vitamin">Vitamin</option>
+            <option value="Cardiac">Cardiac</option>
+            <option value="Diabetic">Diabetic</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <button class="btn-outline" onclick="exportStockPDF()" style="padding:10px 20px;font-size:13px;">📄 Export PDF</button>
+          <button class="btn-primary" onclick="showPage('order')" style="padding:10px 20px;font-size:13px;">📋 Place Order</button>
+        </div>
+      </div>
+
+      <div class="stock-table-wrap">
+        <table class="stock-table" id="stockTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Medicine Name</th>
+              <th>Category</th>
+              <th>Pack</th>
+              <th>MRP (₹)</th>
+              <th>Our Price (₹)</th>
+              <th>Margin %</th>
+              <th>Qty</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="stockBody"></tbody>
+        </table>
+      </div>
+      <div style="margin-top:14px;font-size:13px;color:rgba(255,255,255,0.4)" id="stockCount"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-bottom"><p>© 2025 <span class="red">YSK Pharma</span>. All rights reserved.</p></div>
+  </footer>
+</div>
+
+<!-- ===================== ORDER PAGE ===================== -->
+<div id="page-order" class="page">
+  <section class="section" style="background: var(--dark); min-height: calc(100vh - 70px);">
+    <div style="max-width: 1200px; margin: 0 auto;">
+      <div style="margin-bottom:32px;">
+        <span style="font-family:'Barlow Condensed';font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red)">Medicine Supply</span>
+        <h2 style="font-family:'Bebas Neue',cursive;font-size:48px;margin-top:8px;">PLACE ORDER</h2>
+      </div>
+
+      <div class="order-layout">
+        <!-- ORDER FORM -->
+        <div class="order-form-panel">
+          <div class="form-section-title">Customer Details</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full Name *</label>
+              <input type="text" id="ord_name" placeholder="Dr. / Patient name">
+            </div>
+            <div class="form-group">
+              <label>Phone Number *</label>
+              <input type="tel" id="ord_phone" placeholder="10-digit number">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Address / Hospital / Clinic</label>
+            <input type="text" id="ord_address" placeholder="Delivery address or hospital name">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" id="ord_city" placeholder="Parbhani">
+            </div>
+            <div class="form-group">
+              <label>Order Type</label>
+              <select id="ord_type">
+                <option value="Retail">Retail Purchase</option>
+                <option value="Wholesale">Wholesale Purchase</option>
+                <option value="Hospital Supply">Hospital Supply</option>
+                <option value="Clinic Supply">Clinic Supply</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-section-title">Medicine Selection</div>
+          <div id="medicineRows"></div>
+          <button class="add-med-btn" onclick="addMedicineRow()">+ Add Medicine</button>
+
+          <div class="form-section-title">Additional Info</div>
+          <div class="form-group">
+            <label>Special Instructions / Notes</label>
+            <textarea id="ord_notes" rows="3" placeholder="Any special requirements, urgency, etc."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Preferred Delivery Time</label>
+            <select id="ord_delivery">
+              <option value="ASAP">As Soon As Possible</option>
+              <option value="Today">Today</option>
+              <option value="Tomorrow">Tomorrow</option>
+              <option value="This Week">This Week</option>
+            </select>
+          </div>
+
+          <div style="display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;">
+            <button class="btn-primary" onclick="submitOrder()">✅ Submit Order</button>
+            <button class="btn-outline" onclick="generateOrderPDF()">📄 Generate PDF</button>
+            <button class="btn-outline" onclick="sendWhatsApp()" style="border-color:rgba(37,211,102,0.4);color:#25D366;">💬 WhatsApp Order</button>
+          </div>
+        </div>
+
+        <!-- CART PANEL -->
+        <div class="order-cart-panel">
+          <div class="cart-title">🛒 ORDER SUMMARY</div>
+          <ul class="cart-items" id="cartItems">
+            <li class="cart-empty">No medicines added yet.</li>
+          </ul>
+          <hr class="cart-divider">
+          <div class="cart-total-row"><span>Items</span><span id="cartItemCount">0</span></div>
+          <div class="cart-total-row big"><span>Est. Total</span><span id="cartTotal">₹0.00</span></div>
+          <div style="margin-top:16px;padding:12px;background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.2);border-radius:8px;">
+            <p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.6">📦 Orders will be confirmed via WhatsApp / Call at <strong>099756 49010</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-bottom"><p>© 2025 <span class="red">YSK Pharma</span>. All rights reserved.</p></div>
+  </footer>
+</div>
+
+<!-- ===================== CONTACT PAGE ===================== -->
+<div id="page-contact" class="page">
+  <section class="section" style="background: var(--dark); min-height: calc(100vh - 70px);">
+    <div style="max-width: 1100px; margin: 0 auto;">
+      <div style="margin-bottom:40px;">
+        <span style="font-family:'Barlow Condensed';font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red)">Get In Touch</span>
+        <h2 style="font-family:'Bebas Neue',cursive;font-size:48px;margin-top:8px;">CONTACT US</h2>
+      </div>
+
+      <div class="contact-grid">
+        <div>
+          <div class="contact-info-card">
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div>
+                <h4>Address</h4>
+                <p>Ghalib Nagar, Dargah Rd, opp. EDEN PARK<br>Prabhavati Nagar, Parbhani<br>Maharashtra 431401</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📞</div>
+              <div>
+                <h4>Phone</h4>
+                <p><a href="tel:09975649010">099756 49010</a></p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">💬</div>
+              <div>
+                <h4>WhatsApp</h4>
+                <p><a href="https://wa.me/919975649010" target="_blank">Chat on WhatsApp → 099756 49010</a></p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">⏰</div>
+              <div>
+                <h4>Working Hours</h4>
+                <p>Open 24 Hours, 7 Days a Week<br>Including Sundays & Holidays</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="map-embed" style="margin-top:20px;">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3758.6099316668607!2d76.7749!3d19.2673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDE2JzAyLjMiTiA3NsKwNDYnMjkuNiJF!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+              allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+          <div style="margin-top:10px;">
+            <a href="https://maps.app.goo.gl/xohUNj8qCjaJG5A4A" target="_blank" class="btn-outline" style="display:inline-flex;padding:10px 20px;font-size:13px;">🗺️ Open in Google Maps</a>
+          </div>
+        </div>
+
+        <div class="contact-form-card">
+          <h3>SEND A MESSAGE</h3>
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" id="ct_name" placeholder="Your full name">
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="ct_phone" placeholder="Your mobile number">
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <select id="ct_subject">
+              <option>Medicine Availability Query</option>
+              <option>Price Enquiry</option>
+              <option>Order Follow Up</option>
+              <option>Delivery Query</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea id="ct_msg" rows="5" placeholder="Write your message here..."></textarea>
+          </div>
+          <button class="btn-primary" style="width:100%" onclick="sendContactMsg()">📨 Send Message</button>
+
+          <a class="whatsapp-cta" href="https://wa.me/919975649010" target="_blank">
+            <span class="wa-icon">💬</span>
+            <div>
+              <h4>Chat on WhatsApp</h4>
+              <p>Instant reply — 099756 49010</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-bottom"><p>© 2025 <span class="red">YSK Pharma</span>. All rights reserved.</p></div>
+  </footer>
+</div>
+
+<!-- WhatsApp Float -->
+<a class="whatsapp-float" href="https://wa.me/919975649010" target="_blank" title="Chat on WhatsApp">💬</a>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+// ===================== NAVIGATION =====================
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const navEl = document.getElementById('nav-' + name);
+  if (navEl) navEl.classList.add('active');
+  window.scrollTo(0,0);
+  // Close mobile menu
+  document.getElementById('mainNav').classList.remove('mobile-nav-open');
+  if (name === 'stock') renderStockTable();
+  if (name === 'order') initOrderPage();
+}
+function toggleMobileMenu() {
+  document.getElementById('mainNav').classList.toggle('mobile-nav-open');
+}
+
+// ===================== STOCK DATA =====================
+const medicines = [
+  { id:1, name:'Augmentin 625 Duo', generic:'Amoxicillin+Clavulanate', cat:'Antibiotic', pack:'10 Tab', mrp:285, price:228, qty:150, status:'available' },
+  { id:2, name:'Paracetamol 500mg', generic:'Paracetamol', cat:'Analgesic', pack:'15 Tab', mrp:18, price:13, qty:500, status:'available' },
+  { id:3, name:'Pantoprazole 40mg', generic:'Pantoprazole', cat:'Antacid', pack:'10 Tab', mrp:55, price:40, qty:200, status:'available' },
+  { id:4, name:'Azithromycin 500mg', generic:'Azithromycin', cat:'Antibiotic', pack:'3 Tab', mrp:95, price:72, qty:80, status:'available' },
+  { id:5, name:'Cetirizine 10mg', generic:'Cetirizine HCl', cat:'Antihistamine', pack:'10 Tab', mrp:22, price:16, qty:300, status:'available' },
+  { id:6, name:'Metformin 500mg', generic:'Metformin HCl', cat:'Diabetic', pack:'10 Tab', mrp:35, price:25, qty:20, status:'low' },
+  { id:7, name:'Atorvastatin 20mg', generic:'Atorvastatin', cat:'Cardiac', pack:'10 Tab', mrp:85, price:62, qty:0, status:'out' },
+  { id:8, name:'Amlodipine 5mg', generic:'Amlodipine Besylate', cat:'Cardiac', pack:'10 Tab', mrp:48, price:35, qty:180, status:'available' },
+  { id:9, name:'Vitamin D3 60K', generic:'Cholecalciferol', cat:'Vitamin', pack:'4 Cap', mrp:120, price:88, qty:15, status:'low' },
+  { id:10, name:'Whey Protein 1kg', generic:'Whey Protein Concentrate', cat:'Protein', pack:'1 kg', mrp:1800, price:1450, qty:30, status:'available' },
+  { id:11, name:'Soy Protein 500g', generic:'Soybean Protein Conc.', cat:'Protein', pack:'500 g', mrp:950, price:760, qty:25, status:'available' },
+  { id:12, name:'Milk Protein 500g', generic:'Milk Protein Concentrate', cat:'Protein', pack:'500 g', mrp:1100, price:880, qty:18, status:'available' },
+  { id:13, name:'Cefixime 200mg', generic:'Cefixime', cat:'Antibiotic', pack:'10 Tab', mrp:148, price:110, qty:0, status:'out' },
+  { id:14, name:'Omeprazole 20mg', generic:'Omeprazole', cat:'Antacid', pack:'10 Cap', mrp:42, price:30, qty:250, status:'available' },
+  { id:15, name:'Dolo 650', generic:'Paracetamol 650mg', cat:'Analgesic', pack:'15 Tab', mrp:30, price:22, qty:400, status:'available' },
+  { id:16, name:'Vitamin B Complex', generic:'B1,B2,B6,B12', cat:'Vitamin', pack:'30 Tab', mrp:75, price:55, qty:12, status:'low' },
+  { id:17, name:'Insulin Glargine', generic:'Insulin Glargine', cat:'Diabetic', pack:'1 Vial', mrp:850, price:720, qty:45, status:'available' },
+  { id:18, name:'Amoxicillin 500mg', generic:'Amoxicillin', cat:'Antibiotic', pack:'10 Cap', mrp:58, price:42, qty:160, status:'available' },
+];
+
+let filteredMeds = [...medicines];
+
+function calcMargin(mrp, price) {
+  return (((mrp - price) / mrp) * 100).toFixed(1);
+}
+
+function renderStockTable() {
+  const tbody = document.getElementById('stockBody');
+  const count = document.getElementById('stockCount');
+  tbody.innerHTML = '';
+  filteredMeds.forEach((m, i) => {
+    const margin = calcMargin(m.mrp, m.price);
+    let badge = '';
+    if (m.status === 'available') badge = `<span class="badge badge-avail">✓ Available</span>`;
+    else if (m.status === 'low') badge = `<span class="badge badge-low">⚠ Low Stock</span>`;
+    else badge = `<span class="badge badge-out">✗ Out of Stock</span>`;
+
+    tbody.innerHTML += `
+      <tr>
+        <td style="color:rgba(255,255,255,0.35);font-size:12px">${i+1}</td>
+        <td><div class="med-name">${m.name}</div><div class="med-generic">${m.generic}</div></td>
+        <td><span style="background:rgba(232,24,12,0.1);color:rgba(255,255,255,0.7);padding:3px 8px;border-radius:4px;font-size:11px;font-weight:600">${m.cat}</span></td>
+        <td style="color:rgba(255,255,255,0.6);font-size:13px">${m.pack}</td>
+        <td style="font-weight:600">₹${m.mrp}</td>
+        <td style="color:#90EE90;font-weight:700">₹${m.price}</td>
+        <td><span class="margin-pill">${margin}%</span></td>
+        <td style="font-size:13px;color:${m.qty === 0 ? '#ff5a5a' : m.qty < 20 ? '#FF9F1C' : 'rgba(255,255,255,0.7)'}">${m.qty === 0 ? '-' : m.qty + ' pcs'}</td>
+        <td>${badge}</td>
+        <td>
+          <div class="table-actions">
+            <button class="tbl-btn tbl-btn-add" onclick="addToOrderFromStock(${m.id})">+ Order</button>
+          </div>
+        </td>
+      </tr>`;
+  });
+  count.textContent = `Showing ${filteredMeds.length} of ${medicines.length} products`;
+}
+
+function filterStock() {
+  const search = document.getElementById('stockSearch').value.toLowerCase();
+  const status = document.getElementById('statusFilter').value;
+  const cat = document.getElementById('categoryFilter').value;
+  filteredMeds = medicines.filter(m => {
+    const matchSearch = !search || m.name.toLowerCase().includes(search) || m.generic.toLowerCase().includes(search) || m.cat.toLowerCase().includes(search);
+    const matchStatus = !status || m.status === status;
+    const matchCat = !cat || m.cat === cat;
+    return matchSearch && matchStatus && matchCat;
+  });
+  renderStockTable();
+}
+
+function addToOrderFromStock(id) {
+  const med = medicines.find(m => m.id === id);
+  if (!med || med.status === 'out') { showToast('❌ This medicine is out of stock', 'error'); return; }
+  showPage('order');
+  setTimeout(() => {
+    const sel = document.querySelector('#medicineRows .medicine-select-row:last-child select');
+    if (sel) {
+      sel.value = med.name;
+      updateCart();
+    }
+    showToast(`✅ ${med.name} added to order`, 'success');
+  }, 200);
+}
+
+// ===================== STOCK PDF =====================
+function exportStockPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  doc.setFontSize(20); doc.setTextColor(232,24,12);
+  doc.text('YSK PHARMA', 14, 20);
+  doc.setFontSize(10); doc.setTextColor(100,100,100);
+  doc.text('Ghalib Nagar, Parbhani, Maharashtra 431401 | Ph: 099756 49010', 14, 28);
+  doc.setFontSize(14); doc.setTextColor(0,0,0);
+  doc.text('STOCK LIST', 14, 38);
+  doc.setFontSize(9); doc.setTextColor(120);
+  doc.text(`Generated: ${new Date().toLocaleString('en-IN')}`, 14, 44);
+
+  const rows = filteredMeds.map((m,i) => [
+    i+1, m.name, m.cat, m.pack, '₹'+m.mrp, '₹'+m.price,
+    calcMargin(m.mrp, m.price)+'%',
+    m.qty === 0 ? '-' : m.qty,
+    m.status === 'available' ? 'Available' : m.status === 'low' ? 'Low Stock' : 'Out of Stock'
+  ]);
+
+  doc.autoTable({
+    startY: 50,
+    head: [['#','Medicine Name','Category','Pack','MRP','Price','Margin','Qty','Status']],
+    body: rows,
+    headStyles: { fillColor: [232,24,12], textColor: 255, fontSize: 8, fontStyle: 'bold' },
+    bodyStyles: { fontSize: 8 },
+    alternateRowStyles: { fillColor: [248,248,248] },
+    columnStyles: { 6: { halign: 'center' }, 7: { halign: 'center' } },
+    styles: { cellPadding: 3 },
+  });
+
+  doc.save('YSK_Pharma_Stock_' + new Date().toISOString().slice(0,10) + '.pdf');
+  showToast('📄 Stock PDF downloaded!', 'success');
+}
+
+// ===================== ORDER PAGE =====================
+let cartMeds = [];
+
+function initOrderPage() {
+  const rows = document.getElementById('medicineRows');
+  if (!rows.children.length) addMedicineRow();
+}
+
+function addMedicineRow() {
+  const div = document.createElement('div');
+  div.className = 'medicine-select-row';
+  div.innerHTML = `
+    <select onchange="updateCart()">
+      <option value="">-- Select Medicine --</option>
+      ${medicines.map(m => `<option value="${m.name}" data-price="${m.price}" data-status="${m.status}">${m.name} (₹${m.price})</option>`).join('')}
+    </select>
+    <input type="number" min="1" value="1" placeholder="Qty" oninput="updateCart()" style="text-align:center;">
+    <button class="remove-med" onclick="removeMedRow(this)">✕</button>
+  `;
+  document.getElementById('medicineRows').appendChild(div);
+}
+
+function removeMedRow(btn) {
+  btn.parentElement.remove();
+  updateCart();
+}
+
+function updateCart() {
+  const rows = document.querySelectorAll('.medicine-select-row');
+  cartMeds = [];
+  rows.forEach(row => {
+    const sel = row.querySelector('select');
+    const qty = parseInt(row.querySelector('input').value) || 1;
+    if (sel.value) {
+      const med = medicines.find(m => m.name === sel.value);
+      if (med) cartMeds.push({ name: med.name, qty, price: med.price });
+    }
+  });
+  renderCart();
+}
+
+function renderCart() {
+  const ul = document.getElementById('cartItems');
+  const countEl = document.getElementById('cartItemCount');
+  const totalEl = document.getElementById('cartTotal');
+  ul.innerHTML = '';
+  if (!cartMeds.length) {
+    ul.innerHTML = '<li class="cart-empty">No medicines added yet.</li>';
+    countEl.textContent = '0';
+    totalEl.textContent = '₹0.00';
+    return;
+  }
+  let total = 0;
+  cartMeds.forEach(m => {
+    total += m.price * m.qty;
+    ul.innerHTML += `<li class="cart-item"><div><div class="cart-item-name">${m.name}</div><div class="cart-item-qty">₹${m.price} × ${m.qty}</div></div><div style="font-weight:700;color:#90EE90">₹${(m.price*m.qty).toFixed(2)}</div></li>`;
+  });
+  countEl.textContent = cartMeds.length;
+  totalEl.textContent = '₹' + total.toFixed(2);
+}
+
+function getOrderData() {
+  return {
+    name: document.getElementById('ord_name').value,
+    phone: document.getElementById('ord_phone').value,
+    address: document.getElementById('ord_address').value,
+    city: document.getElementById('ord_city').value,
+    type: document.getElementById('ord_type').value,
+    notes: document.getElementById('ord_notes').value,
+    delivery: document.getElementById('ord_delivery').value,
+  };
+}
+
+function submitOrder() {
+  const d = getOrderData();
+  if (!d.name || !d.phone) { showToast('⚠️ Please enter name and phone number', 'error'); return; }
+  if (!cartMeds.length) { showToast('⚠️ Please add at least one medicine', 'error'); return; }
+  showToast(`✅ Order submitted! We will call you at ${d.phone}`, 'success');
+  sendWhatsApp(true);
+}
+
+function generateOrderPDF() {
+  const d = getOrderData();
+  if (!d.name) { showToast('⚠️ Please fill customer name first', 'error'); return; }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  // Header
+  doc.setFontSize(22); doc.setTextColor(232,24,12);
+  doc.text('YSK PHARMA', 14, 22);
+  doc.setFontSize(9); doc.setTextColor(100);
+  doc.text('Ghalib Nagar, Dargah Rd, opp. EDEN PARK, Prabhavati Nagar', 14, 30);
+  doc.text('Parbhani, Maharashtra 431401 | Ph: 099756 49010', 14, 36);
+  doc.line(14, 40, 196, 40);
+
+  doc.setFontSize(16); doc.setTextColor(0);
+  doc.text('MEDICINE ORDER SLIP', 14, 50);
+  doc.setFontSize(9); doc.setTextColor(100);
+  doc.text(`Order Date: ${new Date().toLocaleString('en-IN')}`, 14, 57);
+  doc.text(`Order ID: ORD-${Date.now().toString().slice(-6)}`, 130, 57);
+
+  // Customer
+  doc.setFontSize(11); doc.setTextColor(232,24,12);
+  doc.text('CUSTOMER DETAILS', 14, 68);
+  doc.setTextColor(0); doc.setFontSize(10);
+  doc.text(`Name: ${d.name}`, 14, 76);
+  doc.text(`Phone: ${d.phone}`, 14, 83);
+  if (d.address) doc.text(`Address: ${d.address}${d.city ? ', ' + d.city : ''}`, 14, 90);
+  doc.text(`Order Type: ${d.type}`, 14, d.address ? 97 : 90);
+  doc.text(`Delivery: ${d.delivery}`, 100, d.address ? 97 : 90);
+
+  // Items
+  const startY = d.address ? 108 : 100;
+  let total = 0;
+  const rows = cartMeds.map((m,i) => {
+    const sub = m.price * m.qty;
+    total += sub;
+    return [i+1, m.name, m.qty, '₹' + m.price, '₹' + sub.toFixed(2)];
+  });
+
+  doc.autoTable({
+    startY,
+    head: [['#', 'Medicine Name', 'Qty', 'Unit Price', 'Total']],
+    body: rows,
+    headStyles: { fillColor: [232,24,12], textColor: 255, fontSize: 9 },
+    bodyStyles: { fontSize: 9 },
+    columnStyles: { 2: {halign:'center'}, 3:{halign:'right'}, 4:{halign:'right'} },
+    styles: { cellPadding: 4 },
+    foot: [[  '', '', '', {content:'TOTAL', styles:{fontStyle:'bold',halign:'right'}}, {content:'₹'+total.toFixed(2), styles:{fontStyle:'bold', textColor:[232,24,12]}} ]],
+    footStyles: { fillColor: [248,248,248], textColor: 0, fontSize: 10 }
+  });
+
+  const finalY = doc.previousAutoTable.finalY + 12;
+  if (d.notes) { doc.setFontSize(9); doc.setTextColor(80); doc.text('Notes: ' + d.notes, 14, finalY); }
+
+  doc.setFontSize(9); doc.setTextColor(130);
+  doc.text('Thank you for choosing YSK Pharma!', 14, doc.internal.pageSize.height - 15);
+  doc.text('WhatsApp / Call: 099756 49010', 140, doc.internal.pageSize.height - 15);
+
+  doc.save(`YSK_Order_${d.name.replace(/\s/g,'_')}_${new Date().toISOString().slice(0,10)}.pdf`);
+  showToast('📄 Order PDF downloaded!', 'success');
+}
+
+function sendWhatsApp(silent = false) {
+  const d = getOrderData();
+  if (!cartMeds.length && !silent) { showToast('⚠️ Please add medicines first', 'error'); return; }
+  let msg = `🏥 *YSK PHARMA — New Order*\n\n`;
+  msg += `👤 *Name:* ${d.name || 'N/A'}\n`;
+  msg += `📞 *Phone:* ${d.phone || 'N/A'}\n`;
+  if (d.address) msg += `📍 *Address:* ${d.address}${d.city ? ', ' + d.city : ''}\n`;
+  msg += `📦 *Type:* ${d.type}\n`;
+  msg += `🚚 *Delivery:* ${d.delivery}\n\n`;
+  msg += `💊 *Medicines:*\n`;
+  let total = 0;
+  cartMeds.forEach(m => {
+    total += m.price * m.qty;
+    msg += `• ${m.name} × ${m.qty} = ₹${(m.price * m.qty).toFixed(2)}\n`;
+  });
+  msg += `\n💰 *Est. Total: ₹${total.toFixed(2)}*`;
+  if (d.notes) msg += `\n\n📝 *Notes:* ${d.notes}`;
+  window.open(`https://wa.me/919975649010?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+// ===================== CONTACT =====================
+function sendContactMsg() {
+  const name = document.getElementById('ct_name').value;
+  const phone = document.getElementById('ct_phone').value;
+  const subj = document.getElementById('ct_subject').value;
+  const msg = document.getElementById('ct_msg').value;
+  if (!name || !phone) { showToast('⚠️ Please enter name and phone', 'error'); return; }
+  const wa = `https://wa.me/919975649010?text=${encodeURIComponent(`📩 *Contact Form Message*\n👤 Name: ${name}\n📞 Phone: ${phone}\n📌 Subject: ${subj}\n\n💬 Message:\n${msg}`)}`;
+  window.open(wa, '_blank');
+  showToast('✅ Opening WhatsApp with your message!', 'success');
+}
+
+// ===================== TOAST =====================
+function showToast(message, type = 'success') {
+  const tc = document.getElementById('toastContainer');
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.innerHTML = `<span>${message}</span>`;
+  tc.appendChild(t);
+  setTimeout(() => t.remove(), 3800);
+}
+
+// ===================== INIT =====================
+document.addEventListener('DOMContentLoaded', () => {
+  renderStockTable();
+  initOrderPage();
+});
+</script>
+</body>
+</html>

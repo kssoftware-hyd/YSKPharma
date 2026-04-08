@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — YSK Pharma | Parbhani</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.ct-layout { display:grid; grid-template-columns:1fr 1.1fr; gap:28px; max-width:1100px; margin:0 auto; }
+
+/* info panel */
+.ct-info { background:var(--panel); border:1px solid var(--border); border-radius:16px; padding:28px; }
+.ct-item { display:flex; gap:14px; align-items:flex-start; padding:16px 0; border-bottom:1px solid var(--border); }
+.ct-item:first-child { padding-top:0; }
+.ct-item:last-child { border-bottom:none; padding-bottom:0; }
+.ct-ico { width:44px; height:44px; background:rgba(232,24,12,.1); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.ct-lbl { font-size:11px; font-family:var(--fd); font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-bottom:5px; }
+.ct-val { font-size:14px; color:rgba(255,255,255,.85); line-height:1.65; }
+.ct-val a { color:var(--red); text-decoration:none; }
+.ct-val a:hover { text-decoration:underline; }
+
+/* map */
+.map-wrap { margin-top:22px; border-radius:12px; overflow:hidden; border:1px solid var(--border); }
+.map-wrap iframe { width:100%; height:260px; border:none; display:block; }
+.map-actions { display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; }
+
+/* form panel */
+.ct-form { background:var(--panel); border:1px solid var(--border); border-radius:16px; padding:28px; }
+.ct-form h3 { font-family:var(--fd); font-size:26px; font-weight:800; margin-bottom:24px; }
+
+/* wa cta */
+.wa-cta {
+  display:flex; align-items:center; gap:14px; margin-top:18px;
+  padding:16px 18px; background:rgba(37,211,102,.07); border:1px solid rgba(37,211,102,.25);
+  border-radius:12px; text-decoration:none; transition:all .2s;
+}
+.wa-cta:hover { background:rgba(37,211,102,.14); }
+.wa-cta .wi { font-size:30px; }
+.wa-cta h4 { font-family:var(--fd); color:#25D366; font-weight:700; font-size:14px; margin-bottom:2px; }
+.wa-cta p { font-size:12px; color:var(--muted); }
+
+/* emergency box */
+.emer-box {
+  margin-top:18px; padding:20px; text-align:center;
+  background:rgba(232,24,12,.07); border:1px solid var(--border-red); border-radius:12px;
+}
+.emer-box .etag { font-family:var(--fd); font-size:11px; font-weight:700; letter-spacing:2px; color:var(--red); text-transform:uppercase; margin-bottom:6px; }
+.emer-box a { font-family:var(--fd); font-size:26px; font-weight:800; color:#fff; text-decoration:none; display:block; transition:color .2s; }
+.emer-box a:hover { color:var(--red); }
+.emer-box small { font-size:12px; color:var(--muted); display:block; margin-top:4px; }
+
+/* pg hero */
+.pg-hero { padding:48px 5% 0; background:linear-gradient(180deg,var(--dark2) 0%,var(--dark) 100%); border-bottom:1px solid var(--border); margin-bottom:40px; }
+.pg-hero-inner { max-width:1100px; margin:0 auto; padding-bottom:36px; }
+.pg-title { font-family:var(--fd); font-size:clamp(38px,5vw,68px); font-weight:800; letter-spacing:-1px; line-height:1; margin-bottom:8px; }
+
+@media(max-width:900px){
+  .ct-layout { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <div class="nav-mark">YSK</div>
+    <div class="nav-brand">YSK <b>Pharma</b></div>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="stock.html">Stock List</a>
+    <a href="contact.html" class="active">Contact</a>
+    <a href="order.html" class="nav-cta">📋 Place Order</a>
+  </div>
+  <button class="nav-mb" onclick="document.getElementById('nav').classList.toggle('mobile-open')">☰</button>
+</nav>
+
+<div class="pg">
+  <div class="pg-hero">
+    <div class="pg-hero-inner">
+      <div class="sec-tag">Get In Touch</div>
+      <div class="pg-title">Contact Us</div>
+      <p style="font-size:14px;color:var(--muted);font-weight:300;">We're available 24/7 — call, WhatsApp or send a message anytime.</p>
+    </div>
+  </div>
+
+  <div style="padding:0 5% 80px;">
+    <div class="ct-layout">
+
+      <!-- INFO -->
+      <div>
+        <div class="ct-info">
+          <div class="ct-item">
+            <div class="ct-ico">📍</div>
+            <div>
+              <div class="ct-lbl">Address</div>
+              <div class="ct-val">Ghalib Nagar, Dargah Rd, opp. EDEN PARK<br>Prabhavati Nagar, Parbhani<br>Maharashtra 431401</div>
+            </div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-ico">📞</div>
+            <div>
+              <div class="ct-lbl">Phone</div>
+              <div class="ct-val"><a href="tel:09975649010">099756 49010</a></div>
+            </div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-ico">💬</div>
+            <div>
+              <div class="ct-lbl">WhatsApp</div>
+              <div class="ct-val"><a href="https://wa.me/919975649010" target="_blank">Chat on WhatsApp → 099756 49010</a></div>
+            </div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-ico">⏰</div>
+            <div>
+              <div class="ct-lbl">Working Hours</div>
+              <div class="ct-val">Open 24 Hours, 7 Days a Week<br>Including Sundays &amp; Holidays</div>
+            </div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-ico">🚚</div>
+            <div>
+              <div class="ct-lbl">Delivery Areas</div>
+              <div class="ct-val">Parbhani city &amp; surrounding areas<br>Fast local dispatch available</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MAP -->
+        <div class="map-wrap">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3758.6!2d76.7749!3d19.2673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDE2JzAyLjMiTiA3NsKwNDYnMjkuNiJF!5e0!3m2!1sen!2sin!4v1700000000000"
+            allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="map-actions">
+          <a href="https://maps.app.goo.gl/xohUNj8qCjaJG5A4A" target="_blank" class="btn-r" style="font-size:12px;padding:10px 18px;">🗺️ Open Google Maps</a>
+          <a href="https://wa.me/919975649010?text=Hi%20YSK%20Pharma!%20I%20need%20directions%20to%20your%20shop." target="_blank" class="btn-wa" style="font-size:12px;padding:10px 18px;">💬 Ask for Directions</a>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div class="ct-form">
+        <h3>Send a Message</h3>
+        <div class="fg"><label>Your Name</label><input type="text" id="ctName" placeholder="Your full name"></div>
+        <div class="fg"><label>Phone Number</label><input type="tel" id="ctPhone" placeholder="Your mobile number"></div>
+        <div class="fg">
+          <label>Subject</label>
+          <select id="ctSub">
+            <option>Medicine Availability Query</option>
+            <option>Price Enquiry</option>
+            <option>Bulk / Wholesale Purchase</option>
+            <option>Order Follow Up</option>
+            <option>Delivery Query</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="fg"><label>Message</label><textarea id="ctMsg" rows="5" placeholder="Write your message here..."></textarea></div>
+        <button class="btn-r" style="width:100%;justify-content:center;" onclick="sendMsg()">📨 Send via WhatsApp</button>
+
+        <a class="wa-cta" href="https://wa.me/919975649010" target="_blank">
+          <span class="wi">💬</span>
+          <div><h4>Chat on WhatsApp</h4><p>Instant reply — 099756 49010</p></div>
+        </a>
+
+        <div class="emer-box">
+          <div class="etag">Emergency Supply — 24/7</div>
+          <a href="tel:09975649010">099756 49010</a>
+          <small>Call anytime for urgent medicine requirements</small>
+        </div>
+
+        <!-- Quick WhatsApp Options -->
+        <div style="margin-top:20px;">
+          <div style="font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Quick WhatsApp Queries</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <a onclick="quickWA('I want to place a medicine order.')" class="btn-g" style="font-size:12px;padding:10px 16px;cursor:pointer;">📋 Place Medicine Order</a>
+            <a onclick="quickWA('I want to check medicine availability.')" class="btn-g" style="font-size:12px;padding:10px 16px;cursor:pointer;">💊 Check Medicine Availability</a>
+            <a onclick="quickWA('I need a price enquiry for medicines.')" class="btn-g" style="font-size:12px;padding:10px 16px;cursor:pointer;">💰 Price Enquiry</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <div class="ft-brand-name"><div class="nav-mark">YSK</div><span>YSK Pharma</span></div>
+        <p>Your trusted medical agency in Parbhani — genuine pharmaceuticals, protein concentrates &amp; therapeutic services. Open 24/7.</p>
+      </div>
+      <div class="ft-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="stock.html">Stock List</a></li>
+          <li><a href="order.html">Place Order</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Contact</h4>
+        <ul>
+          <li>📍 Ghalib Nagar, Parbhani, MH 431401</li>
+          <li>📞 <a href="tel:09975649010" style="color:var(--red);text-decoration:none;">099756 49010</a></li>
+          <li>💬 <a href="https://wa.me/919975649010" target="_blank" style="color:var(--red);text-decoration:none;">WhatsApp Us</a></li>
+          <li>⏰ Open 24 Hours, 7 Days</li>
+        </ul>
+      </div>
+    </div>
+    <div style="text-align: center; color: white; font-weight: bold;">
+    <p>
+        &copy; 2026 
+        <a href="https://kssoftware.co.in" target="_blank" style="color: white; text-decoration: none;">
+            <b>Design & Developed By KS Software</b>
+        </a>. 
+        <br>YSK Pharma - All rights reserved. | 
+        <a href="#" style="color: white; text-decoration: none;">
+            Privacy Policy
+        </a>
+    </p>
+</div>
+  </footer>
+</div>
+
+<a class="wa-float" href="https://wa.me/919975649010" target="_blank"><div class="wa-ring"></div>💬</a>
+<div class="toast-area" id="toastArea"></div>
+
+<script>
+function sendMsg(){
+  const n=document.getElementById('ctName').value.trim();
+  const p=document.getElementById('ctPhone').value.trim();
+  const s=document.getElementById('ctSub').value;
+  const m=document.getElementById('ctMsg').value.trim();
+  if(!n||!p){toast('⚠ Please enter your name and phone number','err');return;}
+  window.open('https://wa.me/919975649010?text='+encodeURIComponent(
+    `📩 *Contact Form — YSK Pharma*\n\n👤 Name: ${n}\n📞 Phone: ${p}\n📌 Subject: ${s}\n\n💬 Message:\n${m}`
+  ),'_blank');
+  toast('✅ Opening WhatsApp...','ok');
+}
+function quickWA(msg){
+  window.open('https://wa.me/919975649010?text='+encodeURIComponent('Hello YSK Pharma! '+msg),'_blank');
+}
+function toast(msg,type='ok'){
+  const tc=document.getElementById('toastArea');
+  const t=document.createElement('div');
+  t.className=`toast ${type}`; t.textContent=msg; tc.appendChild(t);
+  setTimeout(()=>t.remove(),3600);
+}
+</script>
+</body>
+</html>

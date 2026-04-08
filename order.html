@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Place Order — YSK Pharma | Parbhani</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+<style>
+.order-layout { display:grid; grid-template-columns:1fr 360px; gap:24px; align-items:start; }
+.o-panel { background:var(--panel); border:1px solid var(--border); border-radius:16px; padding:28px; }
+.o-cart  { background:var(--dark3); border:1px solid var(--border); border-radius:16px; padding:24px; position:sticky; top:82px; }
+.form-sec {
+  font-family:var(--fd); font-size:11px; font-weight:700; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--red); margin:24px 0 16px;
+  padding-bottom:8px; border-bottom:1px solid rgba(232,24,12,.2);
+}
+.med-row { display:flex; gap:8px; margin-bottom:10px; align-items:center; }
+.med-row select { flex:1; font-size:13px; background:rgba(255,255,255,.05); border:1px solid var(--border); border-radius:8px; padding:11px 14px; color:#fff; outline:none; font-family:var(--fb); transition:border-color .2s; }
+.med-row select:focus { border-color:var(--red); }
+.med-row select option { background:#111; }
+.med-row input[type=number] { width:74px; text-align:center; font-size:13px; background:rgba(255,255,255,.05); border:1px solid var(--border); border-radius:8px; padding:11px 8px; color:#fff; outline:none; font-family:var(--fb); transition:border-color .2s; }
+.med-row input:focus { border-color:var(--red); }
+.med-rm { background:rgba(232,24,12,.14); border:1px solid rgba(232,24,12,.35); color:#ff5a5a; padding:10px 12px; border-radius:7px; cursor:pointer; font-size:15px; flex-shrink:0; transition:all .15s; }
+.med-rm:hover { background:rgba(232,24,12,.32); }
+.add-med-btn {
+  width:100%; background:rgba(34,197,94,.07); border:1px dashed rgba(34,197,94,.4);
+  color:#22c55e; padding:11px; border-radius:8px; cursor:pointer; font-family:var(--fd);
+  font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; transition:all .2s;
+}
+.add-med-btn:hover { background:rgba(34,197,94,.16); }
+.o-btns { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
+
+/* cart */
+.cart-head { font-family:var(--fd); font-size:22px; font-weight:800; margin-bottom:18px; }
+.cart-list { list-style:none; display:flex; flex-direction:column; gap:8px; min-height:60px; }
+.c-item { display:flex; justify-content:space-between; align-items:center; padding:10px 13px; background:rgba(255,255,255,.04); border-radius:9px; }
+.ci-n { font-family:var(--fd); font-size:12px; font-weight:700; }
+.ci-q { font-size:11px; color:var(--muted); margin-top:1px; }
+.ci-p { font-family:var(--fm); font-size:13px; font-weight:700; color:#4ade80; }
+.c-empty { text-align:center; padding:24px; color:var(--muted2); font-size:13px; line-height:1.7; }
+hr.cdiv { border:none; border-top:1px solid var(--border); margin:16px 0; }
+.c-row { display:flex; justify-content:space-between; font-size:13px; color:var(--muted); margin-bottom:7px; }
+.c-row.big { font-size:16px; font-weight:700; color:#fff; margin-top:5px; font-family:var(--fd); }
+.cart-note { margin-top:16px; padding:12px 14px; background:rgba(34,197,94,.07); border:1px solid rgba(34,197,94,.18); border-radius:9px; }
+.cart-note p { font-size:11px; color:var(--muted); line-height:1.7; }
+.cart-note strong { color:rgba(255,255,255,.8); }
+
+/* pg hero */
+.pg-hero { padding:48px 5% 0; background:linear-gradient(180deg,var(--dark2) 0%,var(--dark) 100%); border-bottom:1px solid var(--border); margin-bottom:40px; }
+.pg-hero-inner { max-width:1200px; margin:0 auto; padding-bottom:36px; }
+.pg-title { font-family:var(--fd); font-size:clamp(38px,5vw,68px); font-weight:800; letter-spacing:-1px; line-height:1; margin-bottom:8px; }
+
+@media(max-width:900px){
+  .order-layout { grid-template-columns:1fr; }
+  .o-cart { position:relative; top:0; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <div class="nav-mark">YSK</div>
+    <div class="nav-brand">YSK <b>Pharma</b></div>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="stock.html">Stock List</a>
+    <a href="contact.html">Contact</a>
+    <a href="order.html" class="nav-cta active">📋 Place Order</a>
+  </div>
+  <button class="nav-mb" onclick="document.getElementById('nav').classList.toggle('mobile-open')">☰</button>
+</nav>
+
+<div class="pg">
+  <div class="pg-hero">
+    <div class="pg-hero-inner">
+      <div class="sec-tag">Medicine Supply</div>
+      <div class="pg-title">Place Order</div>
+      <p style="font-size:14px;color:var(--muted);font-weight:300;">Fill in your details and select medicines. We'll confirm via WhatsApp or call.</p>
+    </div>
+  </div>
+
+  <div style="padding:0 5% 80px; max-width:1200px; margin:0 auto; box-sizing:content-box;">
+    <div class="order-layout">
+
+      <!-- FORM -->
+      <div class="o-panel">
+        <div class="form-sec">Customer Details</div>
+        <div class="fr">
+          <div class="fg"><label>Full Name *</label><input type="text" id="oName" placeholder="Dr. / Patient name"></div>
+          <div class="fg"><label>Phone Number *</label><input type="tel" id="oPhone" placeholder="10-digit mobile number"></div>
+        </div>
+        <div class="fg"><label>Address / Hospital / Clinic</label><input type="text" id="oAddr" placeholder="Delivery address or hospital / clinic name"></div>
+        <div class="fr">
+          <div class="fg"><label>City</label><input type="text" id="oCity" placeholder="Parbhani" value="Parbhani"></div>
+          <div class="fg"><label>Order Type</label>
+            <select id="oType">
+              <option>Retail Purchase</option>
+              <option>Wholesale Purchase</option>
+              <option>Hospital Supply</option>
+              <option>Clinic Supply</option>
+              <option>Emergency Supply</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-sec">Medicine Selection</div>
+        <div id="medRows"></div>
+        <button class="add-med-btn" onclick="addRow()">＋ Add Another Medicine</button>
+
+        <div class="form-sec">Delivery &amp; Payment</div>
+        <div class="fr">
+          <div class="fg"><label>Preferred Delivery</label>
+            <select id="oDel">
+              <option>As Soon As Possible</option>
+              <option>Today</option>
+              <option>Tomorrow Morning</option>
+              <option>This Week</option>
+            </select>
+          </div>
+          <div class="fg"><label>Payment Mode</label>
+            <select id="oPay">
+              <option>Cash on Delivery</option>
+              <option>UPI / GPay / PhonePe</option>
+              <option>Credit (Account)</option>
+            </select>
+          </div>
+        </div>
+        <div class="fg"><label>Special Instructions / Notes</label>
+          <textarea id="oNotes" rows="3" placeholder="Any special requirements, substitutes allowed, urgency details..."></textarea>
+        </div>
+
+        <div class="o-btns">
+          <button class="btn-r" onclick="submitOrder()">✅ Submit Order</button>
+          <button class="btn-g" onclick="genPDF()">📄 Download PDF</button>
+          <button class="btn-wa" onclick="waOrder()">💬 WhatsApp Order</button>
+        </div>
+      </div>
+
+      <!-- CART -->
+      <div class="o-cart">
+        <div class="cart-head">🛒 Summary</div>
+        <ul class="cart-list" id="cartList">
+          <li class="c-empty">No medicines added yet.<br>Select medicines from the form ↑</li>
+        </ul>
+        <hr class="cdiv">
+        <div class="c-row"><span>Items</span><span id="cCount">0</span></div>
+        <div class="c-row"><span>Subtotal</span><span id="cSub">₹0.00</span></div>
+        <div class="c-row big"><span>Est. Total</span><span id="cTotal">₹0.00</span></div>
+        <div class="cart-note">
+          <p>📦 All orders confirmed via<br><strong>WhatsApp / Call: 099756 49010</strong></p>
+        </div>
+        <button class="btn-r" style="width:100%;margin-top:14px;justify-content:center;" onclick="submitOrder()">✅ Confirm Order</button>
+        <a href="stock.html" class="btn-g" style="width:100%;margin-top:8px;justify-content:center;box-sizing:border-box;">💊 Add from Stock List</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <div class="ft-brand-name"><div class="nav-mark">YSK</div><span>YSK Pharma</span></div>
+        <p>Your trusted medical agency in Parbhani — open 24/7 for all your medical needs.</p>
+      </div>
+      <div class="ft-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="stock.html">Stock List</a></li>
+          <li><a href="order.html">Place Order</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Contact</h4>
+        <ul>
+          <li>📞 <a href="tel:09975649010" style="color:var(--red);text-decoration:none;">099756 49010</a></li>
+          <li>💬 <a href="https://wa.me/919975649010" target="_blank" style="color:var(--red);text-decoration:none;">WhatsApp Us</a></li>
+          <li>⏰ Open 24 Hours, 7 Days</li>
+        </ul>
+      </div>
+    </div>
+    <div style="text-align: center; color: white; font-weight: bold;">
+    <p>
+        &copy; 2026 
+        <a href="https://kssoftware.co.in" target="_blank" style="color: white; text-decoration: none;">
+            <b>Design & Developed By KS Software</b>
+        </a>. 
+        <br>YSK Pharma - All rights reserved. | 
+        <a href="#" style="color: white; text-decoration: none;">
+            Privacy Policy
+        </a>
+    </p>
+</div>
+  </footer>
+</div>
+
+<a class="wa-float" href="https://wa.me/919975649010" target="_blank"><div class="wa-ring"></div>💬</a>
+<div class="toast-area" id="toastArea"></div>
+
+<script>
+const MEDS = [
+  {id:1,  name:'Augmentin 625 Duo',    pack:'10 Tab',  price:228},
+  {id:2,  name:'Paracetamol 500mg',    pack:'15 Tab',  price:13},
+  {id:3,  name:'Pantoprazole 40mg',    pack:'10 Tab',  price:40},
+  {id:4,  name:'Azithromycin 500mg',   pack:'3 Tab',   price:72},
+  {id:5,  name:'Cetirizine 10mg',      pack:'10 Tab',  price:16},
+  {id:6,  name:'Metformin 500mg',      pack:'10 Tab',  price:25},
+  {id:7,  name:'Atorvastatin 20mg',    pack:'10 Tab',  price:62},
+  {id:8,  name:'Amlodipine 5mg',       pack:'10 Tab',  price:35},
+  {id:9,  name:'Vitamin D3 60K',       pack:'4 Cap',   price:88},
+  {id:10, name:'Whey Protein 1kg',     pack:'1 kg',    price:1450},
+  {id:11, name:'Soy Protein 500g',     pack:'500 g',   price:760},
+  {id:12, name:'Milk Protein 500g',    pack:'500 g',   price:880},
+  {id:13, name:'Cefixime 200mg',       pack:'10 Tab',  price:110},
+  {id:14, name:'Omeprazole 20mg',      pack:'10 Cap',  price:30},
+  {id:15, name:'Dolo 650',             pack:'15 Tab',  price:22},
+  {id:16, name:'Vitamin B Complex',    pack:'30 Tab',  price:55},
+  {id:17, name:'Insulin Glargine',     pack:'1 Vial',  price:720},
+  {id:18, name:'Amoxicillin 500mg',    pack:'10 Cap',  price:42},
+  {id:19, name:'Losartan 50mg',        pack:'10 Tab',  price:44},
+  {id:20, name:'Montelukast 10mg',     pack:'10 Tab',  price:65},
+  {id:21, name:'Rabeprazole 20mg',     pack:'10 Tab',  price:44},
+  {id:22, name:'Levocetirizine 5mg',   pack:'10 Tab',  price:32},
+  {id:23, name:'Glimepiride 2mg',      pack:'10 Tab',  price:38},
+  {id:24, name:'Aspirin 75mg',         pack:'14 Tab',  price:20},
+];
+
+const OPTS = MEDS.map(m=>`<option value="${m.name}" data-price="${m.price}">${m.name} — ₹${m.price}/${m.pack}</option>`).join('');
+let cart = [];
+
+function addRow(prefill='') {
+  const d = document.createElement('div');
+  d.className='med-row';
+  d.innerHTML=`
+    <select onchange="recalc()">
+      <option value="">— Select Medicine —</option>${OPTS}
+    </select>
+    <input type="number" min="1" value="1" oninput="recalc()">
+    <button class="med-rm" onclick="this.parentElement.remove();recalc()">✕</button>`;
+  document.getElementById('medRows').appendChild(d);
+  if(prefill){
+    const s=d.querySelector('select');
+    s.value=prefill; recalc();
+  }
+}
+
+function recalc(){
+  cart=[];
+  document.querySelectorAll('.med-row').forEach(r=>{
+    const s=r.querySelector('select');
+    const q=parseInt(r.querySelector('input').value)||1;
+    if(s.value){
+      const m=MEDS.find(x=>x.name===s.value);
+      if(m) cart.push({name:m.name,qty:q,price:m.price,pack:m.pack});
+    }
+  });
+  renderCart();
+}
+
+function renderCart(){
+  const ul=document.getElementById('cartList');
+  if(!cart.length){
+    ul.innerHTML='<li class="c-empty">No medicines added yet.<br>Select medicines from the form ↑</li>';
+    ['cCount','cSub','cTotal'].forEach(id=>document.getElementById(id).textContent=id==='cCount'?'0':'₹0.00');
+    return;
+  }
+  let total=0;
+  ul.innerHTML=cart.map(m=>{
+    const sub=m.price*m.qty; total+=sub;
+    return `<li class="c-item"><div><div class="ci-n">${m.name}</div><div class="ci-q">₹${m.price} × ${m.qty}</div></div><div class="ci-p">₹${sub.toFixed(2)}</div></li>`;
+  }).join('');
+  document.getElementById('cCount').textContent=cart.length;
+  document.getElementById('cSub').textContent='₹'+total.toFixed(2);
+  document.getElementById('cTotal').textContent='₹'+total.toFixed(2);
+}
+
+function getData(){
+  return {
+    name:document.getElementById('oName').value.trim(),
+    phone:document.getElementById('oPhone').value.trim(),
+    addr:document.getElementById('oAddr').value.trim(),
+    city:document.getElementById('oCity').value.trim(),
+    type:document.getElementById('oType').value,
+    del:document.getElementById('oDel').value,
+    pay:document.getElementById('oPay').value,
+    notes:document.getElementById('oNotes').value.trim(),
+  };
+}
+
+function submitOrder(){
+  const d=getData();
+  if(!d.name||!d.phone){toast('⚠ Please fill Name & Phone','err');return;}
+  if(!cart.length){toast('⚠ Please add at least one medicine','err');return;}
+  toast(`✅ Order submitted! We'll contact you at ${d.phone}`,'ok');
+  setTimeout(()=>waOrder(true),800);
+}
+
+function genPDF(){
+  const d=getData();
+  if(!d.name){toast('⚠ Please fill customer name first','err');return;}
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF();
+  // header band
+  doc.setFillColor(232,24,12); doc.rect(0,0,210,34,'F');
+  doc.setTextColor(255); doc.setFont('helvetica','bold'); doc.setFontSize(20);
+  doc.text('YSK PHARMA',14,15);
+  doc.setFont('helvetica','normal'); doc.setFontSize(8.5);
+  doc.text('Ghalib Nagar, Dargah Rd, opp. EDEN PARK, Prabhavati Nagar, Parbhani, MH 431401',14,23);
+  doc.text('Ph: 099756 49010  |  Open 24 Hours, 7 Days a Week',14,30);
+  // divider & title
+  doc.setTextColor(0); doc.setFont('helvetica','bold'); doc.setFontSize(15);
+  doc.text('MEDICINE ORDER SLIP', 14, 47);
+  doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(110);
+  const oid='ORD-'+Date.now().toString().slice(-7);
+  doc.text('Order Date: '+new Date().toLocaleString('en-IN'), 14, 55);
+  doc.text('Order ID: '+oid, 145, 55);
+  doc.setDrawColor(232,24,12); doc.setLineWidth(.5); doc.line(14,59,196,59);
+  // customer
+  doc.setTextColor(232,24,12); doc.setFont('helvetica','bold'); doc.setFontSize(10);
+  doc.text('CUSTOMER DETAILS', 14, 68);
+  doc.setTextColor(0); doc.setFont('helvetica','normal'); doc.setFontSize(10);
+  let y=76;
+  doc.text('Name: '+d.name, 14, y); doc.text('Phone: '+d.phone, 110, y); y+=8;
+  if(d.addr){doc.text('Address: '+d.addr+(d.city?', '+d.city:''),14,y);y+=8;}
+  doc.text('Order Type: '+d.type, 14, y); doc.text('Delivery: '+d.del, 110, y); y+=8;
+  doc.text('Payment: '+d.pay, 14, y); y+=6;
+  // items table
+  let total=0;
+  const rows=cart.map((m,i)=>{const s=m.price*m.qty;total+=s;return[i+1,m.name,m.pack,m.qty,'₹'+m.price,'₹'+s.toFixed(2)];});
+  doc.autoTable({
+    startY:y+4,
+    head:[['#','Medicine Name','Pack','Qty','Unit Price','Total']],
+    body:rows,
+    headStyles:{fillColor:[232,24,12],textColor:255,fontSize:9,fontStyle:'bold'},
+    bodyStyles:{fontSize:9},
+    alternateRowStyles:{fillColor:[253,250,250]},
+    columnStyles:{3:{halign:'center'},4:{halign:'right'},5:{halign:'right',fontStyle:'bold',textColor:[20,100,20]}},
+    styles:{cellPadding:4},
+    foot:[['','','','',{content:'GRAND TOTAL',styles:{fontStyle:'bold',halign:'right',fontSize:10}},{content:'₹'+total.toFixed(2),styles:{fontStyle:'bold',textColor:[180,0,0],fontSize:11}}]],
+    footStyles:{fillColor:[255,245,245]}
+  });
+  const fy=doc.previousAutoTable.finalY+10;
+  if(d.notes){
+    doc.setFontSize(9);doc.setTextColor(80);
+    doc.text('Notes: '+d.notes,14,fy);
+  }
+  // footer
+  const ph=doc.internal.pageSize.height;
+  doc.setFontSize(8);doc.setTextColor(150);
+  doc.line(14,ph-22,196,ph-22);
+  doc.text('Thank you for choosing YSK Pharma!',14,ph-15);
+  doc.text('WhatsApp / Call: 099756 49010  |  Open 24/7',120,ph-15);
+  // signature box
+  doc.setDrawColor(180); doc.rect(130,fy+5,60,22);
+  doc.setTextColor(140); doc.setFontSize(8);
+  doc.text('Authorised Signature',132,fy+23);
+  doc.save('YSK_Order_'+d.name.replace(/\s+/g,'_')+'_'+oid+'.pdf');
+  toast('📄 Order PDF saved!','ok');
+}
+
+function waOrder(silent=false){
+  if(!cart.length&&!silent){toast('⚠ Add medicines first','err');return;}
+  const d=getData();
+  let msg='🏥 *YSK PHARMA — Medicine Order*\n\n';
+  msg+=`👤 *Name:* ${d.name||'N/A'}\n📞 *Phone:* ${d.phone||'N/A'}\n`;
+  if(d.addr) msg+=`📍 *Address:* ${d.addr}${d.city?', '+d.city:''}\n`;
+  msg+=`📦 *Order Type:* ${d.type}\n🚚 *Delivery:* ${d.del}\n💳 *Payment:* ${d.pay}\n`;
+  let total=0;
+  msg+='\n💊 *Medicines:*\n';
+  cart.forEach(m=>{const s=m.price*m.qty;total+=s;msg+=`  • ${m.name} (${m.pack}) × ${m.qty} = ₹${s.toFixed(2)}\n`;});
+  msg+=`\n💰 *Estimated Total: ₹${total.toFixed(2)}*`;
+  if(d.notes) msg+=`\n\n📝 *Notes:* ${d.notes}`;
+  window.open('https://wa.me/919975649010?text='+encodeURIComponent(msg),'_blank');
+}
+
+function toast(msg,type='ok'){
+  const tc=document.getElementById('toastArea');
+  const t=document.createElement('div');
+  t.className=`toast ${type}`; t.textContent=msg; tc.appendChild(t);
+  setTimeout(()=>t.remove(),3600);
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  addRow();
+  // check quick order from stock page
+  const q=sessionStorage.getItem('quickOrder');
+  if(q){
+    const m=JSON.parse(q);
+    const sel=document.querySelector('.med-row:first-child select');
+    if(sel){sel.value=m.name;recalc();}
+    sessionStorage.removeItem('quickOrder');
+    toast('✅ '+m.name+' added from Stock List','ok');
+  }
+});
+</script>
+</body>
+</html>

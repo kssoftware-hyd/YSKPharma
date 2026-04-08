@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stock List — YSK Pharma | Parbhani</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+<style>
+.stock-pg { padding:60px 5% 80px; }
+.pg-hero {
+  padding:48px 5% 0;
+  background:linear-gradient(180deg,var(--dark2) 0%,var(--dark) 100%);
+  border-bottom:1px solid var(--border);
+  margin-bottom:40px;
+}
+.pg-hero-inner { max-width:1300px; margin:0 auto; padding-bottom:36px; }
+.pg-title { font-family:var(--fd); font-size:clamp(38px,5vw,68px); font-weight:800; letter-spacing:-1px; line-height:1; margin-bottom:8px; }
+.pg-sub { font-size:14px; color:var(--muted); font-weight:300; }
+
+/* toolbar */
+.toolbar {
+  max-width:1300px; margin:0 auto 20px;
+  display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
+}
+.filters { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+.s-in {
+  background:var(--panel); border:1px solid var(--border); border-radius:8px;
+  padding:10px 16px; color:#fff; font-size:13px; font-family:var(--fb);
+  outline:none; width:240px; transition:border-color .2s;
+}
+.s-in:focus { border-color:var(--red); }
+.s-in::placeholder { color:var(--muted2); }
+.s-sel {
+  background:var(--panel); border:1px solid var(--border); border-radius:8px;
+  padding:10px 14px; color:#fff; font-size:13px; font-family:var(--fb);
+  outline:none; cursor:pointer; transition:border-color .2s;
+}
+.s-sel:focus { border-color:var(--red); }
+.s-sel option { background:#111; }
+.tool-btns { display:flex; gap:8px; }
+
+/* table */
+.tbl-wrap { max-width:1300px; margin:0 auto; border-radius:14px; border:1px solid var(--border); overflow:hidden; overflow-x:auto; }
+.tbl { width:100%; border-collapse:collapse; font-size:13px; min-width:820px; }
+.tbl thead { background:rgba(232,24,12,.1); }
+.tbl thead th {
+  padding:13px 16px; text-align:left; font-family:var(--fd);
+  font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+  color:rgba(255,255,255,.6); border-bottom:1px solid var(--border); white-space:nowrap;
+}
+.tbl thead th:first-child { width:44px; }
+.tbl tbody tr { border-bottom:1px solid rgba(255,255,255,.04); transition:background .15s; }
+.tbl tbody tr:hover { background:rgba(255,255,255,.03); }
+.tbl td { padding:13px 16px; vertical-align:middle; color:rgba(255,255,255,.85); }
+.med-n { font-family:var(--fd); font-weight:700; font-size:13px; }
+.med-g { font-size:11px; color:var(--muted2); margin-top:2px; font-family:var(--fm); }
+.cat-tag { background:rgba(255,255,255,.06); color:rgba(255,255,255,.6); padding:3px 9px; border-radius:5px; font-size:11px; font-family:var(--fd); font-weight:600; }
+.mrg { font-family:var(--fm); font-size:12px; font-weight:700; background:rgba(34,197,94,.1); color:#4ade80; padding:4px 10px; border-radius:6px; display:inline-block; }
+.mrp-price { font-family:var(--fm); }
+.ta-btn {
+  padding:6px 12px; border-radius:6px; border:1px solid var(--border);
+  background:transparent; color:#fff; font-size:11px; cursor:pointer;
+  transition:all .15s; font-family:var(--fd); font-weight:700;
+}
+.ta-btn:hover { background:rgba(232,24,12,.2); border-color:var(--red); }
+.ta-order { background:rgba(34,197,94,.1); border-color:rgba(34,197,94,.35); color:#22c55e; }
+.ta-order:hover { background:rgba(34,197,94,.25); }
+
+/* stats bar */
+.stats-bar {
+  max-width:1300px; margin:0 auto 20px;
+  display:flex; gap:16px; flex-wrap:wrap;
+}
+.st-pill {
+  background:var(--panel); border:1px solid var(--border); border-radius:8px;
+  padding:8px 16px; font-size:12px; font-family:var(--fd); font-weight:600; color:var(--muted);
+  display:flex; align-items:center; gap:7px;
+}
+.st-pill span { font-size:16px; font-weight:800; font-family:var(--fm); color:#fff; }
+
+#stockInfo { max-width:1300px; margin:12px auto 0; font-size:12px; color:var(--muted2); font-family:var(--fm); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <div class="nav-mark">YSK</div>
+    <div class="nav-brand">YSK <b>Pharma</b></div>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="stock.html" class="active">Stock List</a>
+    <a href="contact.html">Contact</a>
+    <a href="order.html" class="nav-cta">📋 Place Order</a>
+  </div>
+  <button class="nav-mb" onclick="document.getElementById('nav').classList.toggle('mobile-open')">☰</button>
+</nav>
+
+<div class="pg">
+
+  <!-- PAGE HERO -->
+  <div class="pg-hero">
+    <div class="pg-hero-inner">
+      <div class="sec-tag">Medicine Inventory</div>
+      <div class="pg-title">Stock List</div>
+      <p class="pg-sub">Live inventory — check availability, margins &amp; prices. Last updated: <span id="lastUp" style="color:rgba(255,255,255,.6)"></span></p>
+    </div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar" id="statsBar"></div>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="filters">
+      <input type="text" class="s-in" id="sSearch" placeholder="🔍  Search medicine or generic…" oninput="doFilter()">
+      <select class="s-sel" id="sStatus" onchange="doFilter()">
+        <option value="">All Status</option>
+        <option value="available">Available</option>
+        <option value="low">Low Stock</option>
+        <option value="out">Out of Stock</option>
+      </select>
+      <select class="s-sel" id="sCat" onchange="doFilter()">
+        <option value="">All Categories</option>
+        <option>Antibiotic</option><option>Analgesic</option><option>Antacid</option>
+        <option>Antihistamine</option><option>Protein</option><option>Vitamin</option>
+        <option>Cardiac</option><option>Diabetic</option>
+      </select>
+    </div>
+    <div class="tool-btns">
+      <button class="btn-g" onclick="exportPDF()" style="padding:10px 18px;font-size:12px;">📄 Export PDF</button>
+      <a href="order.html" class="btn-r" style="padding:10px 18px;font-size:12px;">📋 Place Order</a>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Medicine Name</th>
+          <th>Category</th>
+          <th>Pack</th>
+          <th>MRP (₹)</th>
+          <th>Our Price (₹)</th>
+          <th>Margin %</th>
+          <th>Qty in Stock</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="stockBody"></tbody>
+    </table>
+  </div>
+  <div id="stockInfo"></div>
+
+  <!-- FOOTER -->
+  <footer style="margin-top:80px;">
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <div class="ft-brand-name"><div class="nav-mark">YSK</div><span>YSK Pharma</span></div>
+        <p>Your trusted medical agency in Parbhani — genuine pharmaceuticals, protein concentrates &amp; therapeutic services. Open 24/7.</p>
+      </div>
+      <div class="ft-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="stock.html">Stock List</a></li>
+          <li><a href="order.html">Place Order</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Contact</h4>
+        <ul>
+          <li>📞 <a href="tel:09975649010" style="color:var(--red);text-decoration:none;">099756 49010</a></li>
+          <li>💬 <a href="https://wa.me/919975649010" target="_blank" style="color:var(--red);text-decoration:none;">WhatsApp Us</a></li>
+          <li>⏰ Open 24 Hours, 7 Days</li>
+        </ul>
+      </div>
+    </div>
+    <div style="text-align: center; color: white; font-weight: bold;">
+    <p>
+        &copy; 2026 
+        <a href="https://kssoftware.co.in" target="_blank" style="color: white; text-decoration: none;">
+            <b>Design & Developed By KS Software</b>
+        </a>. 
+        <br>YSK Pharma - All rights reserved. | 
+        <a href="#" style="color: white; text-decoration: none;">
+            Privacy Policy
+        </a>
+    </p>
+</div>
+  </footer>
+</div>
+
+<a class="wa-float" href="https://wa.me/919975649010" target="_blank"><div class="wa-ring"></div>💬</a>
+<div class="toast-area" id="toastArea"></div>
+
+<script>
+const MEDS = [
+  {id:1,  name:'Augmentin 625 Duo',    gen:'Amoxicillin+Clavulanate',    cat:'Antibiotic',    pack:'10 Tab',  mrp:285,  price:228, qty:150, status:'available'},
+  {id:2,  name:'Paracetamol 500mg',    gen:'Paracetamol',                cat:'Analgesic',     pack:'15 Tab',  mrp:18,   price:13,  qty:500, status:'available'},
+  {id:3,  name:'Pantoprazole 40mg',    gen:'Pantoprazole',               cat:'Antacid',       pack:'10 Tab',  mrp:55,   price:40,  qty:200, status:'available'},
+  {id:4,  name:'Azithromycin 500mg',   gen:'Azithromycin',               cat:'Antibiotic',    pack:'3 Tab',   mrp:95,   price:72,  qty:80,  status:'available'},
+  {id:5,  name:'Cetirizine 10mg',      gen:'Cetirizine HCl',             cat:'Antihistamine', pack:'10 Tab',  mrp:22,   price:16,  qty:300, status:'available'},
+  {id:6,  name:'Metformin 500mg',      gen:'Metformin HCl',              cat:'Diabetic',      pack:'10 Tab',  mrp:35,   price:25,  qty:18,  status:'low'},
+  {id:7,  name:'Atorvastatin 20mg',    gen:'Atorvastatin Calcium',       cat:'Cardiac',       pack:'10 Tab',  mrp:85,   price:62,  qty:0,   status:'out'},
+  {id:8,  name:'Amlodipine 5mg',       gen:'Amlodipine Besylate',        cat:'Cardiac',       pack:'10 Tab',  mrp:48,   price:35,  qty:180, status:'available'},
+  {id:9,  name:'Vitamin D3 60K',       gen:'Cholecalciferol 60000 IU',   cat:'Vitamin',       pack:'4 Cap',   mrp:120,  price:88,  qty:12,  status:'low'},
+  {id:10, name:'Whey Protein 1kg',     gen:'Whey Protein Concentrate',   cat:'Protein',       pack:'1 kg',    mrp:1800, price:1450,qty:30,  status:'available'},
+  {id:11, name:'Soy Protein 500g',     gen:'Soybean Protein Conc.',      cat:'Protein',       pack:'500 g',   mrp:950,  price:760, qty:25,  status:'available'},
+  {id:12, name:'Milk Protein 500g',    gen:'Milk Protein Concentrate',   cat:'Protein',       pack:'500 g',   mrp:1100, price:880, qty:18,  status:'available'},
+  {id:13, name:'Cefixime 200mg',       gen:'Cefixime Trihydrate',        cat:'Antibiotic',    pack:'10 Tab',  mrp:148,  price:110, qty:0,   status:'out'},
+  {id:14, name:'Omeprazole 20mg',      gen:'Omeprazole',                 cat:'Antacid',       pack:'10 Cap',  mrp:42,   price:30,  qty:250, status:'available'},
+  {id:15, name:'Dolo 650',             gen:'Paracetamol 650mg',          cat:'Analgesic',     pack:'15 Tab',  mrp:30,   price:22,  qty:400, status:'available'},
+  {id:16, name:'Vitamin B Complex',    gen:'B1, B2, B6, B12 Complex',    cat:'Vitamin',       pack:'30 Tab',  mrp:75,   price:55,  qty:10,  status:'low'},
+  {id:17, name:'Insulin Glargine',     gen:'Insulin Glargine 100IU/ml',  cat:'Diabetic',      pack:'1 Vial',  mrp:850,  price:720, qty:45,  status:'available'},
+  {id:18, name:'Amoxicillin 500mg',    gen:'Amoxicillin Trihydrate',     cat:'Antibiotic',    pack:'10 Cap',  mrp:58,   price:42,  qty:160, status:'available'},
+  {id:19, name:'Losartan 50mg',        gen:'Losartan Potassium',         cat:'Cardiac',       pack:'10 Tab',  mrp:62,   price:44,  qty:90,  status:'available'},
+  {id:20, name:'Montelukast 10mg',     gen:'Montelukast Sodium',         cat:'Antihistamine', pack:'10 Tab',  mrp:88,   price:65,  qty:0,   status:'out'},
+  {id:21, name:'Rabeprazole 20mg',     gen:'Rabeprazole Sodium',         cat:'Antacid',       pack:'10 Tab',  mrp:60,   price:44,  qty:130, status:'available'},
+  {id:22, name:'Levocetirizine 5mg',   gen:'Levocetirizine HCl',         cat:'Antihistamine', pack:'10 Tab',  mrp:45,   price:32,  qty:200, status:'available'},
+  {id:23, name:'Glimepiride 2mg',      gen:'Glimepiride',                cat:'Diabetic',      pack:'10 Tab',  mrp:55,   price:38,  qty:8,   status:'low'},
+  {id:24, name:'Aspirin 75mg',         gen:'Acetylsalicylic Acid',       cat:'Cardiac',       pack:'14 Tab',  mrp:28,   price:20,  qty:350, status:'available'},
+];
+
+let filtered = [...MEDS];
+
+function mrg(m,p){ return (((m-p)/m)*100).toFixed(1); }
+
+function buildStats() {
+  const avail = MEDS.filter(m=>m.status==='available').length;
+  const low   = MEDS.filter(m=>m.status==='low').length;
+  const out   = MEDS.filter(m=>m.status==='out').length;
+  document.getElementById('statsBar').innerHTML = `
+    <div class="st-pill">Total &nbsp;<span>${MEDS.length}</span></div>
+    <div class="st-pill" style="border-color:rgba(34,197,94,.3);color:#22c55e;">Available &nbsp;<span style="color:#22c55e">${avail}</span></div>
+    <div class="st-pill" style="border-color:rgba(245,158,11,.3);color:#f59e0b;">Low Stock &nbsp;<span style="color:#f59e0b">${low}</span></div>
+    <div class="st-pill" style="border-color:rgba(232,24,12,.3);color:#ff5a5a;">Out of Stock &nbsp;<span style="color:#ff5a5a">${out}</span></div>`;
+}
+
+function buildTable() {
+  const tbody = document.getElementById('stockBody');
+  tbody.innerHTML = '';
+  filtered.forEach((m,i) => {
+    const mg = mrg(m.mrp,m.price);
+    const badge = m.status==='available'
+      ? `<span class="badge b-ok">● Available</span>`
+      : m.status==='low'
+        ? `<span class="badge b-low">⚠ Low Stock</span>`
+        : `<span class="badge b-out">✕ Out of Stock</span>`;
+    const qc = m.qty===0?'#ff5a5a':m.qty<20?'#f59e0b':'rgba(255,255,255,.7)';
+    tbody.innerHTML += `<tr>
+      <td style="color:var(--muted2);font-family:var(--fm);font-size:11px">${i+1}</td>
+      <td><div class="med-n">${m.name}</div><div class="med-g">${m.gen}</div></td>
+      <td><span class="cat-tag">${m.cat}</span></td>
+      <td style="color:var(--muted);font-size:12px">${m.pack}</td>
+      <td><span class="mrp-price" style="text-decoration:line-through;color:var(--muted);font-size:12px;">₹${m.mrp}</span></td>
+      <td style="font-family:var(--fm);font-weight:700;color:#4ade80;font-size:14px">₹${m.price}</td>
+      <td><span class="mrg">${mg}%</span></td>
+      <td style="font-family:var(--fm);font-size:12px;color:${qc}">${m.qty===0?'—':m.qty+' pcs'}</td>
+      <td>${badge}</td>
+      <td><button class="ta-btn ta-order" onclick="goOrder(${m.id})" ${m.status==='out'?'disabled style="opacity:.4;cursor:not-allowed"':''}>+ Order</button></td>
+    </tr>`;
+  });
+  document.getElementById('stockInfo').textContent = `Showing ${filtered.length} of ${MEDS.length} products`;
+}
+
+function doFilter() {
+  const s = document.getElementById('sSearch').value.toLowerCase();
+  const st = document.getElementById('sStatus').value;
+  const ct = document.getElementById('sCat').value;
+  filtered = MEDS.filter(m=>
+    (!s||m.name.toLowerCase().includes(s)||m.gen.toLowerCase().includes(s)||m.cat.toLowerCase().includes(s))&&
+    (!st||m.status===st)&&(!ct||m.cat===ct)
+  );
+  buildTable();
+}
+
+function goOrder(id){
+  const m = MEDS.find(x=>x.id===id);
+  if(!m||m.status==='out'){toast('❌ Out of stock','err');return;}
+  sessionStorage.setItem('quickOrder', JSON.stringify(m));
+  window.location.href='order.html';
+}
+
+function exportPDF(){
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF({orientation:'landscape'});
+  // header
+  doc.setFillColor(232,24,12); doc.rect(0,0,297,28,'F');
+  doc.setTextColor(255); doc.setFont('helvetica','bold'); doc.setFontSize(18);
+  doc.text('YSK PHARMA — STOCK LIST',14,12);
+  doc.setFont('helvetica','normal'); doc.setFontSize(9);
+  doc.text('Ghalib Nagar, Parbhani, MH 431401  |  Ph: 099756 49010  |  Open 24/7',14,21);
+  doc.text('Generated: '+new Date().toLocaleString('en-IN'),220,21);
+  // table
+  const rows=filtered.map((m,i)=>[
+    i+1,m.name,m.gen,m.cat,m.pack,
+    '₹'+m.mrp,'₹'+m.price,mrg(m.mrp,m.price)+'%',
+    m.qty===0?'Out of Stock':m.qty+' pcs',
+    m.status==='available'?'Available':m.status==='low'?'Low Stock':'Out of Stock'
+  ]);
+  doc.autoTable({
+    startY:32,
+    head:[['#','Medicine Name','Generic Name','Category','Pack','MRP','Our Price','Margin','Qty','Status']],
+    body:rows,
+    headStyles:{fillColor:[232,24,12],textColor:255,fontSize:8,fontStyle:'bold'},
+    bodyStyles:{fontSize:8},
+    alternateRowStyles:{fillColor:[248,248,248]},
+    styles:{cellPadding:3},
+    columnStyles:{
+      6:{textColor:[30,120,30],fontStyle:'bold'},
+      7:{halign:'center'},
+      8:{halign:'center'},
+      9:{halign:'center'},
+    }
+  });
+  const fy=doc.previousAutoTable.finalY+8;
+  doc.setFontSize(8); doc.setTextColor(140);
+  doc.text(`Total: ${MEDS.length} products | Available: ${MEDS.filter(m=>m.status==='available').length} | Low: ${MEDS.filter(m=>m.status==='low').length} | Out: ${MEDS.filter(m=>m.status==='out').length}`,14,fy);
+  doc.save('YSK_Stock_'+new Date().toISOString().slice(0,10)+'.pdf');
+  toast('📄 Stock PDF exported!','ok');
+}
+
+function toast(msg,type='ok'){
+  const tc=document.getElementById('toastArea');
+  const t=document.createElement('div');
+  t.className=`toast ${type}`; t.textContent=msg; tc.appendChild(t);
+  setTimeout(()=>t.remove(),3600);
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('lastUp').textContent=new Date().toLocaleString('en-IN');
+  buildStats(); buildTable();
+});
+</script>
+</body>
+</html>
